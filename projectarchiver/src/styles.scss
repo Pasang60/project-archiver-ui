@@ -1,1 +1,153 @@
-/* You can add global styles to this file, and also import other style files */
+/* Original CSS */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* colors */
+  // --primary-color: #1d1842;
+  --primary-color: #191d88;
+  // --secondary-color: #ef3b33;
+  --secondary-color: #ffc436;
+  --third-color: #f6f7f7;
+  // --dashboard-bg: #191c24;
+  --dashboard-bg: #171717;
+  --dashboard-text-color: #d8d8d8;
+  --main-panel-bg: #f6f7f7;
+
+
+  --navbar-height: 70px;
+  --sidebar-width: 250px;
+  --sidebar-icon-only-width: 70px
+}
+
+html {
+  width: 100% !important;
+}
+
+body {
+  font-family: "Rubik", sans-serif !important;
+  overflow-x: hidden;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--primary-color) !important;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  color: var(--primary-color) !important;
+}
+
+h3 {
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  color: var(--primary-color) !important;
+}
+
+h4 {
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  color: var(--primary-color) !important;
+}
+
+h5 {
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  color: var(--primary-color) !important;
+}
+
+h6 {
+  font-size: clamp(1rem, 1.5vw, 1.1rem);
+  color: var(--primary-color) !important;
+}
+
+label {
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  // font-size: var(--regular-label);
+}
+
+p {
+  font-size: clamp(0.9rem, 1.2vw, 0.98rem);
+}
+
+a {
+  font-size: clamp(0.8rem, 1.2vw, 0.8rem)
+}
+
+small,
+span {
+  font-size: clamp(0.8rem, 1vw, 0.9rem);
+}
+
+button:active,
+button:focus,
+input:active,
+input:focus {
+  box-shadow: none !important;
+}
+
+//For dashboard's different sections' header part
+// .dashboard-details-header {
+//     h1 {
+//         color: var(--primary-color);
+//     }
+
+//     .btn {
+//         background-color: var(--primary-color);
+//         border-color: var(--primary-color);
+//     }
+// }
+
+.table-custom {
+  --bs-table-bg: var(--primary-color) !important;
+  --bs-table-color: var(--third-color) !important;
+}
+
+.table-striped {
+  --bs-table-striped-bg: rgba(29, 24, 66, 0.15) !important;
+}
+
+//To make the toast fixed on the screen regardless of page scrolling
+.toast-container {
+  position: fixed !important;
+  z-index: 1060;
+
+  .toast-title{
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .toast-message{
+    font-size: 14px;
+    font-weight: 300;
+  }
+}
+
+@media (max-width: 768px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
+
+//To maintain the screen size of the main content panel when side bar is showing icons only.
+.sidebar-icon-only {
+  .main-panel {
+    width: calc(100% - 70px);
+  }
+
+  @media (max-width: 991px) {
+    .main-panel {
+      width: 100%;
+    }
+  }
+}
+
+//ends here
