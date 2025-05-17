@@ -4,15 +4,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { HeaderComponent } from './common/header/header.component';
-import { FooterComponent } from './common/footer/footer.component';
+import { HeaderComponent } from './landing-page/header/header.component';
+import { FooterComponent } from './landing-page/footer/footer.component';
+import { LoginComponent } from './auth/login/login.component';
+import { HomePageComponent } from './landing-page/home-page/home-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LoginComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
