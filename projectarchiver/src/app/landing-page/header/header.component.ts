@@ -42,7 +42,7 @@ export class HeaderComponent {
 
   setActiveLink() {
     if (isPlatformBrowser(this.platformId)) {
-      const sections = ['home', 'about', 'feature', 'team', 'faq', 'footer'];
+      const sections = ['home', 'about', 'feature', 'testimonial', 'faq', 'footer'];
       const scrollPosition = window.scrollY || document.documentElement.scrollTop;
       let activeSection = '';
       for (const section of sections) {
