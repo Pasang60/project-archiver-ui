@@ -24,4 +24,8 @@ export class AuthService {
   loginUser(loginDetail: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/auth/login`, loginDetail);
   }
+
+  checkOtp(data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/users/validate`, data);
+  }
 }

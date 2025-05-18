@@ -1,0 +1,42 @@
+<div class="body">
+  <div class="form-container">
+    <form (ngSubmit)="otpCheck()">
+      <div class="container">
+        <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+          <div class="col-md-8 col-lg-6">
+            <div class="rounded bg-light p-5">
+              <h3 class="text-center"><i class="fa-solid fa-envelope-circle-check"></i></h3>
+              <p class="text-center text-center h6 ">Your code was sent to you via email</p>
+              <div [formGroup]="otpDetails">
+                <div class="otp-input-container">
+                  <div class="otp-boxes my-4">
+                    <input #otp1 class="otp-box" formControlName="otp1" maxLength="1" (input)="moveToNext(otp1, otp2)" (paste)="handlePaste($event, otp1, otp2)">
+                    <input #otp2 class="otp-box" formControlName="otp2" maxLength="1" (input)="moveToNext(otp2, otp3)" (paste)="handlePaste($event, otp2, otp3)">
+                    <input #otp3 class="otp-box" formControlName="otp3" maxLength="1" (input)="moveToNext(otp3, otp4)" (paste)="handlePaste($event, otp3, otp4)">
+                    <input #otp4 class="otp-box" formControlName="otp4" maxLength="1" (input)="moveToNext(otp4, otp5)" (paste)="handlePaste($event, otp4, otp5)">
+                    <input #otp5 class="otp-box" formControlName="otp5" maxLength="1" (input)="moveToNext(otp5, otp6)" (paste)="handlePaste($event, otp5, otp6)">
+                    <input #otp6 class="otp-box" formControlName="otp6" maxLength="1">
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary mt-3 w-100">Verify</button>
+              </div>
+              <div class="message mt-3">
+                <p>If you don't see a code in your inbox, check your spam folder. If it's not there, the email address may not be confirmed.</p>
+              </div>
+              <div *ngIf="remainingTime > 0" class="text-center">
+                OTP will expire in: {{ formatTime(remainingTime) }}
+              </div>
+              <div *ngIf="remainingTime <= 0" class="text-center">
+                <p>
+                  OTP has expired
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

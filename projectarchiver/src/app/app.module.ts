@@ -9,9 +9,10 @@ import { FooterComponent } from './landing-page/footer/footer.component';
 import { LoginComponent } from './auth/login/login.component';
 import { TestimonialComponent } from './landing-page/testimonial/testimonial.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ToastrModule} from 'ngx-toastr';
 import {HttpClientModule} from '@angular/common/http';
+import { OtpComponent } from './auth/otp/otp.component';
 
 @NgModule({
   declarations: [
@@ -21,18 +22,20 @@ import {HttpClientModule} from '@angular/common/http';
     FooterComponent,
     LoginComponent,
     TestimonialComponent,
-    SignUpComponent
+    SignUpComponent,
+    OtpComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-      HttpClientModule,
-      ToastrModule.forRoot({
-        preventDuplicates: true,
-        positionClass: 'toast-top-center'
-      })
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ToastrModule.forRoot({
+      preventDuplicates: true,
+      positionClass: 'toast-top-center'
+    }),
+    FormsModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
