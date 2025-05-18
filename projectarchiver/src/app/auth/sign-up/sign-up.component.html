@@ -1,0 +1,87 @@
+<!-- signup.component.html -->
+<div class="container">
+  <div class="form-container bg-white">
+    <div class="header-text">
+      <h1 class="mb-2">Create Account</h1>
+    </div>
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <!-- Profile Picture Upload -->
+      <div class="mb-4 text-center">
+        <div class="profile-pic-preview">
+          <ng-container *ngIf="profileImagePreview; else defaultImage">
+            <img [src]="profileImagePreview" alt="Profile Preview">
+          </ng-container>
+          <ng-template #defaultImage>
+            <i class="fas fa-user" style="font-size: 60px; color: #ccc;"></i>
+          </ng-template>
+        </div>
+        <div class="mb-3">
+          <label for="profilePic" class="form-label">Profile Picture</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-image"></i></span>
+            <input class="form-control" type="file" id="profilePic" accept="image/*"
+                   (change)="onProfileImageSelected($event)">
+          </div>
+        </div>
+      </div>
+
+      <!-- Full Name -->
+      <div class="mb-3">
+        <label for="fullName" class="form-label">Full Name</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-user"></i></span>
+          <input type="text" class="form-control" id="fullName"
+                 placeholder="Enter the full name" formControlName="fullName">
+        </div>
+        <div *ngIf="signupForm.get('fullName')?.invalid &&
+                    (signupForm.get('fullName')?.dirty || signupForm.get('fullName')?.touched)"
+             class="text-danger mt-1">
+          <small *ngIf="signupForm.get('fullName')?.errors?.['required']">Full name is required</small>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+          <input type="email" class="form-control" id="email"
+                 placeholder="Enter the email" formControlName="email">
+        </div>
+        <div *ngIf="signupForm.get('email')?.invalid &&
+                    (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)"
+             class="text-danger mt-1">
+          <small *ngIf="signupForm.get('email')?.errors?.['required']">Email is required</small>
+          <small *ngIf="signupForm.get('email')?.errors?.['email']">Please enter a valid email</small>
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <div class="mb-3">
+        <label for="phone" class="form-label">Phone Number</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-phone"></i></span>
+          <input type="number" class="form-control" id="phone"
+                 placeholder="Enter the phone number" formControlName="phone">
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-home"></i></span>
+          <input type="text" class="form-control" id="address"
+                 placeholder="Enter the address" formControlName="address">
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary btn-lg"
+                [disabled]="signupForm.invalid">Sign Up</button>
+      </div>
+    </form>
+  </div>
+</div>

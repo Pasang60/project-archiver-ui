@@ -12,6 +12,8 @@ import { AboutComponent } from './landing-page/about/about.component';
 import { FeaturesComponent } from './landing-page/features/features.component';
 import { TestimonialComponent } from './landing-page/testimonial/testimonial.component';
 import { FaqsComponent } from './landing-page/faqs/faqs.component';
+import { SignUpComponent } from './auth/sign-up/sign-up.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -24,12 +26,14 @@ import { FaqsComponent } from './landing-page/faqs/faqs.component';
     AboutComponent,
     FeaturesComponent,
     TestimonialComponent,
-    FaqsComponent
+    FaqsComponent,
+    SignUpComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
