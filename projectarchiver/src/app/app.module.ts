@@ -10,6 +10,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { HomePageComponent } from './landing-page/home-page/home-page.component';
 import { AboutComponent } from './landing-page/about/about.component';
 import { FeaturesComponent } from './landing-page/features/features.component';
+import { TestimonialComponent } from './landing-page/testimonial/testimonial.component';
+import { FaqsComponent } from './landing-page/faqs/faqs.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { FeaturesComponent } from './landing-page/features/features.component';
     LoginComponent,
     HomePageComponent,
     AboutComponent,
-    FeaturesComponent
+    FeaturesComponent,
+    TestimonialComponent,
+    FaqsComponent
   ],
   imports: [
     BrowserModule,
