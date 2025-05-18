@@ -1,47 +1,55 @@
-<nav class="navbar navbar-expand-lg" [ngClass]="{'sticky': isSticky}">
-  <div class="container">
-<!--    <a routerLink="./" class="navbar-brand" href="javascript:void(0)"></a>-->
-<!--    <a class="navbar-brand logo-container" href="#">-->
-<!--      <img class="logo" src="../../../assets/logo/aadimInnovation.png" alt="logo">-->
-<!--    </a>-->
-    <button class="navbar-toggler border-none" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-      <i class="mdi mdi-menu text-light"></i>
-    </button>
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title text-light" id="offcanvasNavbarLabel">Menus</h5>
-        <i class="fa-solid fa-xmark" data-bs-dismiss="offcanvas" aria-label="Close"></i>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-end flex-grow-1">
-          <li class="nav-item mx-3">
-            <a class="nav-link" [class.active]="activeSection === 'home'"
-               (click)="scrollToAnchoringPosition('home')" href="javascript:void(0)">Home</a>
-          </li>
-          <li class="nav-item mx-3">
-            <a class="nav-link" [class.active]="activeSection === 'about'"
-               (click)="scrollToAnchoringPosition('about')" href="javascript:void(0)">About Us</a>
-          </li>
-          <li class="nav-item mx-3">
-            <a class="nav-link" [class.active]="activeSection === 'feature'"
-               (click)="scrollToAnchoringPosition('feature')" href="javascript:void(0)">Features</a>
-          </li>
-          <li class="nav-item mx-3">
-            <a class="nav-link" [class.active]="activeSection === 'testimonial'"
-               (click)="scrollToAnchoringPosition('testimonial')" href="javascript:void(0)">Testimonials</a>
-          </li>
-          <li class="nav-item ms-3">
-            <a class="nav-link" [class.active]="activeSection === 'faq'"
-               (click)="scrollToAnchoringPosition('faq')" href="javascript:void(0)">FAQs</a>
-          </li>
-          <li class="nav-item ms-3">
-            <a class="nav-link" [class.active]="activeSection === 'footer'" routerLink="/signup" f="javascript:void(0)">Signup</a>
-          </li>
 
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" routerLink="/">
+        <i class="fa-solid fa-box-archive me-2 text-primary"></i>
+        <span>Project Archiver</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+          </li>
+<!--          <li class="nav-item" *ngIf="isAuthenticated">-->
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>-->
+<!--          </li>-->
         </ul>
 
+        <div class="d-flex align-items-center">
+<!--          <ng-container *ngIf="!isAuthenticated">-->
+          <ng-container>
+            <a class="btn btn-outline-primary me-2" routerLink="/auth/login">Login</a>
+            <a class="btn btn-primary" routerLink="/auth/register">Sign Up</a>
+          </ng-container>
+
+<!--          <div class="dropdown" *ngIf="isAuthenticated">-->
+          <div class="dropdown" *ngIf="false">
+            <div class="d-flex align-items-center" style="cursor: pointer;" (click)="toggleDropdown()">
+              <div class="avatar me-2">
+<!--                {{ getInitials(currentUser) }}-->
+              </div>
+<!--              <span>{{ currentUser?.firstName }}</span>-->
+              <i class="bi bi-caret-down-fill ms-1 small"></i>
+            </div>
+
+            <div class="dropdown-menu" [class.show]="dropdownOpen">
+              <a class="dropdown-item" routerLink="/profile">Profile</a>
+              <a class="dropdown-item" routerLink="/dashboard">My Archives</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item text-danger" (click)="logout()">Logout</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</header>

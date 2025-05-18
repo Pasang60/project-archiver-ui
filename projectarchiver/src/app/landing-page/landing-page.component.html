@@ -1,34 +1,212 @@
-<app-home-page></app-home-page>
-<app-about></app-about>
-<app-features></app-features>
+<div class="landing-page">
+  <!-- Hero Section -->
+  <section class="hero-section py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <h1 class="display-4 fw-bold mb-3 slide-up">Simplify Your File Storage</h1>
+          <p class="lead mb-4 slide-up animation-delay-1">
+            Upload your files, folders, and documents. We'll compress them to save space while keeping your data organized and accessible.
+          </p>
+          <div class="d-flex flex-wrap gap-3 slide-up animation-delay-2">
+            <a class="btn btn-primary" routerLink="/auth/register">
+              Get Started
+            </a>
+            <a href="#features" class="btn btn-outline-dark btn-lg">
+              Learn More
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="hero-image text-center fade-in">
+            <img src="https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                 alt="Project Archiver" class="img-fluid rounded shadow">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<div class="info-section py-5">
-  <div class="container text-center">
-    <p class="mb-4">Aadim Innovation CMS to the <strong class="code">core</strong></p>
-    <h3 class="my-5">
-      At Aadim Innovation CMS, we’re committed to the open web. With the help of our customers, we devote 5% of
-      our time to
-      pushing forward the free, open source CMS code and community.
-    </h3>
-    <button class="btn">Request a Demo</button>
-  </div>
+  <!-- Stats Section -->
+  <section class="bg-light py-5">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-4 mb-4 mb-md-0">
+          <div class="stat-item slide-up">
+            <h2 class="fw-bold text-primary">85%</h2>
+            <p class="mb-0">Average Compression</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 mb-md-0">
+          <div class="stat-item slide-up animation-delay-1">
+            <h2 class="fw-bold text-primary">10,000+</h2>
+            <p class="mb-0">Users Trust Us</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="stat-item slide-up animation-delay-2">
+            <h2 class="fw-bold text-primary">5M+</h2>
+            <p class="mb-0">Files Archived</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold">Key Features</h2>
+        <p class="lead text-muted">Everything you need to manage and compress your files</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 border-0 slide-up">
+            <div class="card-body text-center">
+              <div class="feature-icon mb-3">
+                <i class="fa-solid fa-file-zipper text-primary" style="font-size: 3rem;"></i>
+              </div>
+              <h4 class="card-title">File Compression</h4>
+              <p class="card-text text-muted">
+                Reduce file sizes by up to 85% while maintaining quality and accessibility.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100 border-0 slide-up animation-delay-1">
+            <div class="card-body text-center">
+              <div class="feature-icon mb-3">
+                <i class="fa-solid fa-folder-open text-primary" style="font-size: 3rem;"></i>
+              </div>
+              <h4 class="card-title">Folder Upload</h4>
+              <p class="card-text text-muted">
+                Upload entire folders with their structure intact for easy organization.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100 border-0 slide-up animation-delay-2">
+            <div class="card-body text-center">
+              <div class="feature-icon mb-3">
+                <i class="fa-solid fa-cloud-arrow-down text-primary" style="font-size: 3rem;"></i>
+              </div>
+              <h4 class="card-title">Easy Access</h4>
+              <p class="card-text text-muted">
+                Access your compressed files from anywhere, on any device.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100 border-0 slide-up">
+            <div class="card-body text-center">
+              <div class="feature-icon mb-3">
+                <i class="fa-solid fa-shield-halved text-primary" style="font-size: 3rem;"></i>
+              </div>
+              <h4 class="card-title">Secure Storage</h4>
+              <p class="card-text text-muted">
+                Your files are encrypted and securely stored for maximum protection.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100 border-0 slide-up animation-delay-1">
+            <div class="card-body text-center">
+              <div class="feature-icon mb-3">
+                <i class="fa-solid fa-magnifying-glass text-primary" style="font-size: 3rem;"></i>
+              </div>
+              <h4 class="card-title">Easy Search</h4>
+              <p class="card-text text-muted">
+                Quickly find your archived files with our powerful search functionality.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card h-100 border-0 slide-up animation-delay-2">
+            <div class="card-body text-center">
+              <div class="feature-icon mb-3">
+                <i class="fa-solid fa-share-nodes text-primary" style="font-size: 3rem;"></i>
+              </div>
+              <h4 class="card-title">Share Files</h4>
+              <p class="card-text text-muted">
+                Easily share your compressed files with colleagues and friends.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="bg-light py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold">How It Works</h2>
+        <p class="lead text-muted">Simple steps to archive your projects</p>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+          <div class="step-item text-center slide-up">
+            <div class="step-number">1</div>
+            <h5 class="mt-4">Create Account</h5>
+            <p class="text-muted">Sign up for a free account to get started.</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+          <div class="step-item text-center slide-up animation-delay-1">
+            <div class="step-number">2</div>
+            <h5 class="mt-4">Upload Files</h5>
+            <p class="text-muted">Drag and drop your files or folders.</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <div class="step-item text-center slide-up animation-delay-2">
+            <div class="step-number">3</div>
+            <h5 class="mt-4">Compress</h5>
+            <p class="text-muted">We'll compress your files automatically.</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="step-item text-center slide-up animation-delay-3">
+            <div class="step-number">4</div>
+            <h5 class="mt-4">Access Anywhere</h5>
+            <p class="text-muted">Download or share your archived files.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2 class="fw-bold mb-4">Ready to start archiving?</h2>
+          <p class="lead mb-4">Join thousands of users who trust Project Archiver to organize and compress their files.</p>
+<!--          <a [routerLink]="isAuthenticated ? '/dashboard' : '/auth/register'" class="btn btn-primary btn-lg">-->
+<!--            Get Started Now-->
+<!--          </a>-->
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 
 <app-testimonial></app-testimonial>
-
-<app-faqs></app-faqs>
-
-
-
-
-<!-- Call to Action -->
-<section class="py-5 bg-primary text-white">
-  <div class="container text-center">
-    <h2 class="mb-4">Ready to Get Started?</h2>
-    <p class="lead mb-4">Join thousands of professionals who trust Project Archiver for their project management needs.</p>
-    <button class="btn btn-light btn-lg px-5">Sign Up for Free</button>
-  </div>
-</section>
-
-
-<app-footer></app-footer>

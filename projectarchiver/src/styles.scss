@@ -1,155 +1,195 @@
-/* Original CSS */
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+/* Global styles for Project Archiver */
 
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* Import Bootstrap CSS */
+@import 'bootstrap/dist/css/bootstrap.min.css';
 
 :root {
-  /* colors */
-  // --primary-color: #1d1842;
-  --primary-color: #191d88;
+  /* Color System */
+  --primary: #0077FF;
+  --primary-light: #4D9FFF;
+  --primary-dark: #0055CC;
+  --secondary: #6C757D;
+  --accent: #FF9500;
+  --success: #28A745;
+  --warning: #FFC107;
+  --danger: #DC3545;
+  --light: #F8F9FA;
+  --dark: #212529;
+  --white: #FFFFFF;
 
-  --my-color : #8a3fda;
-  // --secondary-color: #ef3b33;
-  --secondary-color: #ffc436;
-  --third-color: #f6f7f7;
-  // --dashboard-bg: #191c24;
-  --dashboard-bg: #171717;
-  --dashboard-text-color: #d8d8d8;
-  --main-panel-bg: #f6f7f7;
+  /* Neutral shades */
+  --gray-100: #F8F9FA;
+  --gray-200: #E9ECEF;
+  --gray-300: #DEE2E6;
+  --gray-400: #CED4DA;
+  --gray-500: #ADB5BD;
+  --gray-600: #6C757D;
+  --gray-700: #495057;
+  --gray-800: #343A40;
+  --gray-900: #212529;
 
-
-  --navbar-height: 70px;
-  --sidebar-width: 250px;
-  --sidebar-icon-only-width: 70px
-}
-
-html {
-  width: 100% !important;
+  /* Font settings */
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --body-line-height: 1.5;
+  --heading-line-height: 1.2;
 }
 
 body {
-  font-family: "Rubik", sans-serif !important;
-  overflow-x: hidden;
+  font-family: var(--font-family);
+  line-height: var(--body-line-height);
+  color: var(--gray-900);
+  background-color: var(--gray-100);
+  margin: 0;
+  padding: 0;
 }
 
-h1 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  color: var(--primary-color) !important;
+h1, h2, h3, h4, h5, h6 {
+  line-height: var(--heading-line-height);
+  font-weight: 600;
+  margin-bottom: 1rem;
 }
 
-h2 {
-  font-size: clamp(1.5rem, 4vw, 2.2rem);
-  color: var(--primary-color) !important;
+/* Consistent 8px spacing system */
+.m-1 { margin: 8px !important; }
+.m-2 { margin: 16px !important; }
+.m-3 { margin: 24px !important; }
+.m-4 { margin: 32px !important; }
+.m-5 { margin: 40px !important; }
+
+.p-1 { padding: 8px !important; }
+.p-2 { padding: 16px !important; }
+.p-3 { padding: 24px !important; }
+.p-4 { padding: 32px !important; }
+.p-5 { padding: 40px !important; }
+
+/* Card styling */
+.card {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-h3 {
-  font-size: clamp(1.3rem, 3vw, 1.8rem);
-  color: var(--primary-color) !important;
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-h4 {
-  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
-  color: var(--primary-color) !important;
+/* Button styling */
+.btn {
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 500;
+  transition: all 0.2s;
 }
 
-h5 {
-  font-size: clamp(1.1rem, 2vw, 1.5rem);
-  color: var(--primary-color) !important;
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
 }
 
-h6 {
-  font-size: clamp(1rem, 1.5vw, 1.1rem);
-  color: var(--primary-color) !important;
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
 }
 
-label {
-  font-size: clamp(0.9rem, 1.2vw, 1rem);
-  // font-size: var(--regular-label);
+/* Form controls */
+.form-control {
+  border-radius: 8px;
+  padding: 12px;
+  border: 1px solid var(--gray-300);
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-p {
-  font-size: clamp(0.9rem, 1.2vw, 0.98rem);
+.form-control:focus {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.2);
 }
 
-a {
-  font-size: clamp(0.8rem, 1.2vw, 0.8rem)
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
 }
 
-small,
-span {
-  font-size: clamp(0.8rem, 1vw, 0.9rem);
+.slide-up {
+  animation: slideUp 0.3s ease-out;
 }
 
-button:active,
-button:focus,
-input:active,
-input:focus {
-  box-shadow: none !important;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-//For dashboard's different sections' header part
-// .dashboard-details-header {
-//     h1 {
-//         color: var(--primary-color);
-//     }
-
-//     .btn {
-//         background-color: var(--primary-color);
-//         border-color: var(--primary-color);
-//     }
-// }
-
-.table-custom {
-  --bs-table-bg: var(--primary-color) !important;
-  --bs-table-color: var(--third-color) !important;
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
-.table-striped {
-  --bs-table-striped-bg: rgba(29, 24, 66, 0.15) !important;
+/* Responsive containers */
+.container-fluid {
+  max-width: 1440px;
 }
 
-//To make the toast fixed on the screen regardless of page scrolling
-.toast-container {
-  position: fixed !important;
-  z-index: 1060;
-
-  .toast-title{
-    font-size: 16px;
-    font-weight: 400;
-  }
-
-  .toast-message{
-    font-size: 14px;
-    font-weight: 300;
-  }
+/* Upload area */
+.upload-area {
+  border: 2px dashed var(--gray-400);
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  transition: border-color 0.2s, background-color 0.2s;
+  cursor: pointer;
 }
 
-@media (max-width: 768px) {
-  html,
-  body {
-    overflow-x: hidden;
-  }
+.upload-area:hover, .upload-area.active {
+  border-color: var(--primary);
+  background-color: rgba(0, 119, 255, 0.05);
 }
 
-//To maintain the screen size of the main content panel when side bar is showing icons only.
-.sidebar-icon-only {
-  .main-panel {
-    width: calc(100% - 70px);
-  }
-
-  @media (max-width: 991px) {
-    .main-panel {
-      width: 100%;
-    }
-  }
+/* File/Archive items */
+.file-item {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: var(--white);
+  margin-bottom: 8px;
+  transition: background-color 0.2s;
 }
 
-//ends here
+.file-item:hover {
+  background-color: var(--gray-100);
+}
+
+/* Progress bars */
+.progress {
+  height: 8px;
+  border-radius: 4px;
+  margin: 8px 0;
+}
+
+.progress-bar {
+  background-color: var(--primary);
+}
+
+/* Navigation */
+.navbar {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-brand {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* User avatar */
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
