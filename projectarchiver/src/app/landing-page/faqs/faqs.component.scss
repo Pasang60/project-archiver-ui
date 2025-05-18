@@ -1,0 +1,12 @@
+
+button {
+  font-size: 18px;
+  font-weight: 500 !important;
+}
+
+.accordion-button:not(.collapsed) {
+
+  &::after {
+    transform: rotate(180deg);
+  }
+}
