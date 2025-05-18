@@ -1,0 +1,59 @@
+<div class="wrapper">
+  <div class="rounded login-form border p-4 bg-light">
+    <form>
+
+      <!-- Login Form Content -->
+      <div class="user-login-form">
+        <h3 class="text-center fw-bold">Login</h3>
+
+        <div class="mb-4">
+          <label class="mt-3 form-label custom-label">Email</label>
+          <div class="inner-input-div">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="text" class="form-control" name="email" placeholder="Enter your email"
+                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="mt-3 form-label custom-label">Password</label>
+          <div class="password-input-container">
+            <div class="inner-input-div">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" class="form-control password-input" name="password" placeholder="Enter your password" required />
+              <i class="fa-regular fa-eye eye-icon"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <span class="forgot">Forgot Password?
+            <a class="reset" href="#">Reset Here</a>
+          </span>
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="login-button w-100">Login</button>
+        </div>
+      </div>
+
+      <!-- Password Reset Content -->
+      <div class="password-reset text-center p-3 mt-4" style="display: none;">
+        <h5 class="pb-2 fw-bold">Forgot Password</h5>
+        <small>Enter your email and we'll send you a link to reset your password.</small>
+        <div class="row my-4">
+          <div class="inner-input-div px-0">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="text" class="form-control" name="resetEmail" placeholder="Enter your email"
+                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+          </div>
+        </div>
+
+        <div class="row btn-div">
+          <button class="login-button w-100" type="button">Proceed</button>
+          <small class="col"><i class="fa-solid fa-arrow-left"></i> Back to Login</small>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
