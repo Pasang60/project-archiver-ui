@@ -1,43 +1,42 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
-  styleUrl: './sign-up.component.scss'
+  styleUrls: ['./sign-up.component.scss']  // Fixed typo: `styleUrl` ➜ `styleUrls`
 })
 export class SignUpComponent implements OnInit {
   signupForm: FormGroup;
   profileImagePreview: string | ArrayBuffer | null = null;
+  submitted = false; // ✅ Add this
 
-  constructor(private fb: FormBuilder,
-              private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.signupForm = this.fb.group({
-      fullName: ['', [Validators.required]],
+      fullName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phone: [''],
-      address: [''],
-      profilePic: [null]
+      phone: ['', Validators.required],
+      address: ['', Validators.required],
+      profilePic: [null, Validators.required] // ✅ Add required validator
     });
+
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  // ✅ Add this getter for cleaner template access
+  get f() {
+    return this.signupForm.controls;
   }
 
-  // Handle profile image preview
   onProfileImageSelected(event: Event): void {
     const fileInput = event.target as HTMLInputElement;
 
-    if (fileInput.files?.[0]) { // Add null-safe check for files
+    if (fileInput.files?.[0]) {
       const file = fileInput.files[0];
+      this.signupForm.patchValue({ profilePic: file });
 
-      // Update form control value with the file
-      this.signupForm.patchValue({
-        profilePic: file
-      });
-
-      // Create a preview of the image
       const reader = new FileReader();
       reader.onload = () => {
         this.profileImagePreview = reader.result;
@@ -46,33 +45,26 @@ export class SignUpComponent implements OnInit {
     }
   }
 
-  // Form submission handler
   onSubmit(): void {
+    this.submitted = true; // Set submitted to true
+
     if (this.signupForm.valid) {
-      // Here you would normally send the form data to your backend service
-      console.log('Form submitted successfully!', this.signupForm.value);
-
-      // If you need to send the form data including the file, you would use FormData
       const formData = new FormData();
-
-      // Append form field values
       Object.keys(this.signupForm.controls).forEach(key => {
-        if (key === 'profilePic') {
-          if (this.signupForm.get('profilePic')?.value) {
-            formData.append('profilePic', this.signupForm.get('profilePic')?.value);
-          }
+        const control = this.signupForm.get(key);
+        if (key === 'profilePic' && control?.value) {
+          formData.append('profilePic', control.value);
         } else {
-          formData.append(key, this.signupForm.get(key)?.value);
+          formData.append(key, control?.value);
         }
       });
 
-      // Now you can use this formData with your HTTP service
-      // this.userService.registerUser(formData).subscribe(response => { ... });
-
+      console.log('Form Data:', this.signupForm.value);
       alert('Form submitted successfully!');
-    } else {
-      // Mark all fields as touched to trigger validation messages
+    }
+    if (this.signupForm.invalid) {
       this.signupForm.markAllAsTouched();
+      return;
     }
   }
 }

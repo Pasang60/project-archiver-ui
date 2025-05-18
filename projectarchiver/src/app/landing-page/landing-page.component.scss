@@ -1,10 +1,135 @@
+/* Base styling enhancements */
+body {
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
 
+/* Fix section spacing */
+section {
+  margin: 0; /* Remove default margins */
+  padding: 80px 0; /* Consistent padding top and bottom */
+}
 
+/* Adjust hero section */
+.hero-section {
+  padding: 80px 0;
+}
 
+.hero-image img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
+/* Animation delays */
+.animation-delay-1 {
+  animation-delay: 0.1s;
+}
 
+.animation-delay-2 {
+  animation-delay: 0.2s;
+}
+
+.animation-delay-3 {
+  animation-delay: 0.3s;
+}
+
+/* Stats section styling */
+.stat-item {
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  height: 100%;
+}
+
+.stat-item h2 {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+}
+
+/* Feature cards styling */
 .feature-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  color: #764ba2;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Steps styling */
+.step-number {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: var(--bs-primary);
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.step-item {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  height: 100%;
+}
+
+/* CTA section styling - Fix the gap */
+.cta-section {
+  background-color: var(--bs-gray-100);
+  border-radius: 12px;
+  margin: 0; /* Remove margin causing the gap */
+  padding: 60px 0;
+}
+
+/* Remove any spacing between sections */
+section + section {
+  margin-top: 0;
+}
+
+
+/* Animation classes */
+.slide-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.5s ease forwards;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  section {
+    padding: 40px 0;
+  }
 }
