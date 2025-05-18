@@ -81,8 +81,9 @@ export class SignUpComponent implements OnInit {
       this.authService.registerUsers(signupFormData).subscribe({
         next: () => {
           this.toast.showSuccess('Users registered successfully.');
+          localStorage.setItem('email', this.f['email'].value);
 
-          this.router.navigate(['/auth/login']);
+          this.router.navigate(['/auth/otp-verify']);
 
         },
         error: (error: any) => {

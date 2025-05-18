@@ -1,0 +1,31 @@
+.body {
+  margin-bottom: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-size: 16px;
+  background-color: #d9d9d9;
+
+}
+
+.otp-boxes {
+  display: flex;
+  justify-content: space-between;
+  justify-content: center;
+}
+
+.otp-box {
+  width: 60px;
+  height: 60px;
+  background: #ffffff;
+  border:0.9px solid #d9d9d9;
+  border-radius: 5px;
+  margin-right: 8px;
+  text-align: center;
+
+}
+/* CSS to remove green border on focused input fields */
+.otp-box:focus {
+  outline: none; /* Remove outline on focus */
+}
