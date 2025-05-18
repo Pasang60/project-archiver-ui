@@ -1,49 +1,74 @@
-import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from '../service/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../service/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastService } from '../../common/toast.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']  // ✅ Fixed typo: should be `styleUrls` not `styleUrl`
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
-  loginForm: FormGroup;
-  loading = false;
-  submitted = false;
-  errorMessage = '';
-  returnUrl: string = '/dashboard';
+  @ViewChild('loginForm') loginForm!: ElementRef;
+
+  loginDetail!: FormGroup;
+  submitted: boolean = false;
+  token: string = '';
+  loading: boolean = false;
+  redirectUrl: string = '';
+  errorMessage: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
-  ) {
-    // Initialize form
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
-    });
+    private authService: AuthService,
+    private toast: ToastService
+  ) {}
 
-    // Get return URL from route parameters or default to '/dashboard'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+  ngOnInit(): void {
+    this.loginDetail = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+    });
   }
 
-  // Getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
+  // ✅ Cleaner access to form controls
+  get f() {
+    return this.loginDetail.controls;
+  }
 
-  onSubmit() {
+  markAllAsTouched(): void {
+    this.loginDetail.markAllAsTouched();
+  }
+
+  onSubmit(): void {
     this.submitted = true;
-    this.errorMessage = '';
 
-    // Stop here if form is invalid
-    if (this.loginForm.invalid) {
+    if (this.loginDetail.invalid) {
+      this.markAllAsTouched();
       return;
     }
 
+    this.loading = true; // Start spinner
 
+    this.authService.loginUser(this.loginDetail.value).subscribe({
+      next: (response: any) => {
+        this.loading = false; // Stop spinner
+        this.token = response.data.accessToken;
+        localStorage.setItem("token", this.token);
+        this.redirectUrl = localStorage.getItem('updateSignupUrl') || '/admin';
+        localStorage.removeItem('updateSignupUrl');
+        this.router.navigate([this.redirectUrl]);
+
+        this.toast.showSuccess('Login successful'); // Show toast
+      },
+      error: (error: any) => {
+        this.loading = false; // Stop spinner
+        this.toast.showError('Invalid email or password'); // Show error toast
+      }
+    });
   }
 }

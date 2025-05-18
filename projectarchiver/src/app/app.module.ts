@@ -10,6 +10,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { TestimonialComponent } from './landing-page/testimonial/testimonial.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {ToastrModule} from 'ngx-toastr';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,12 @@ import {ReactiveFormsModule} from '@angular/forms';
     imports: [
         BrowserModule,
         AppRoutingModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+      HttpClientModule,
+      ToastrModule.forRoot({
+        preventDuplicates: true,
+        positionClass: 'toast-top-center'
+      })
     ],
   providers: [],
   bootstrap: [AppComponent]
