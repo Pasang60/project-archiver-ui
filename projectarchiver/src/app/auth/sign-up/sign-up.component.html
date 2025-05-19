@@ -96,6 +96,20 @@
             </div>
             </div>
 
+            <!-- Password -->
+            <div class="mb-4">
+              <label for="password" class="form-label">Password</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                <input type="password" id="password" class="form-control" formControlName="password"
+                       [ngClass]="{'is-invalid': submitted && f['password'].errors}" placeholder="Enter the Password">
+
+                <div class="invalid-feedback" *ngIf="submitted && f['password'].errors">
+                  <div *ngIf="f['password'].errors?.['required']">Password is required</div>
+                </div>
+              </div>
+            </div>
+
             <!-- Submit Button -->
             <div class="d-grid">
               <button type="submit" class="btn btn-primary btn-lg" [disabled]="loading">

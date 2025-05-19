@@ -28,4 +28,8 @@ export class AuthService {
   checkOtp(data: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/users/validate`, data);
   }
+
+  updatePassword(data: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/users/set-password`, data);
+  }
 }

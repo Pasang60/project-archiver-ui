@@ -124,8 +124,8 @@ export class OtpComponent implements OnInit{
       next: (response: any) => {
         console.log(response);
         this.toast.showSuccess('OTP Validation Successful.');
-        localStorage.removeItem('expirationTime');
-        this.router.navigate(['auth/change-password']);
+        // localStorage.removeItem('expirationTime');
+        this.router.navigate(['auth/login']);
       },
       error: () => {
         this.toast.showError('Invalid OTP');

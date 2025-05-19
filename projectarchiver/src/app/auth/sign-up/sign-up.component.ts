@@ -37,6 +37,7 @@ export class SignUpComponent implements OnInit {
       profilePic: ['', [Validators.required]],
       address: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.pattern(/(?:\(?\+977\)?)?9[6-9]\d{8}|01-?[0-9]{7}/)]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
     });
   }
 
@@ -76,6 +77,7 @@ export class SignUpComponent implements OnInit {
       signupFormData.append('profilePic', this.f['profilePic'].value);
       signupFormData.append('address', this.f['address'].value);
       signupFormData.append('phone', this.f['phone'].value);
+      signupFormData.append('password', this.f['password'].value);
 
 
       this.authService.registerUsers(signupFormData).subscribe({
