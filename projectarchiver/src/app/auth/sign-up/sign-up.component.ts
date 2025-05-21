@@ -32,7 +32,8 @@ export class SignUpComponent implements OnInit {
 
   signupFormInitialization(): void {
     this.signupForm = this.fb.group({
-      fullName: ['', [Validators.required]],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
       profilePic: ['', [Validators.required]],
       address: ['', [Validators.required]],
@@ -72,7 +73,8 @@ export class SignUpComponent implements OnInit {
 
     if (this.signupForm.valid && this.isPresentFile && !this.imageTypeError) {
       const signupFormData = new FormData();
-      signupFormData.append('fullName', this.f['fullName'].value);
+      signupFormData.append('firstName', this.f['firstName'].value);
+      signupFormData.append('lastName', this.f['lastName'].value);
       signupFormData.append('email', this.f['email'].value);
       signupFormData.append('profilePic', this.f['profilePic'].value);
       signupFormData.append('address', this.f['address'].value);

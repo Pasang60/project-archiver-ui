@@ -13,6 +13,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ToastrModule} from 'ngx-toastr';
 import {HttpClientModule} from '@angular/common/http';
 import { OtpComponent } from './auth/otp/otp.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { OtpComponent } from './auth/otp/otp.component';
     LoginComponent,
     TestimonialComponent,
     SignUpComponent,
-    OtpComponent
+    OtpComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

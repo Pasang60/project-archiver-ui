@@ -1,0 +1,12 @@
+.archive-row {
+  transition: background-color 0.2s;
+}
+
+.archive-row:hover {
+  background-color: rgba(0, 119, 255, 0.05);
+}
+
+.btn-group .btn {
+  border-radius: 4px;
+  margin: 0 2px;
+}
