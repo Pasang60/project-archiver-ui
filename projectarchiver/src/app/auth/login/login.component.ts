@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
   loginDetail!: FormGroup;
   submitted: boolean = false;
   token: string = '';
+  firstName: string = '';
+  lastName: string = '';
   loading: boolean = false;
   redirectUrl: string = '';
   errorMessage: string = '';
@@ -58,10 +60,19 @@ export class LoginComponent implements OnInit {
       next: (response: any) => {
         this.loading = false; // Stop spinner
         this.token = response.data.accessToken;
+        this.firstName = response.data.user.firstName;
+        this.lastName = response.data.user.lastName;
+
+        // Save the entire role object as a JSON string
+        const roleData = response.data.user.role;
+
         localStorage.setItem("token", this.token);
-        this.redirectUrl = localStorage.getItem('updateSignupUrl') || '/admin';
-        localStorage.removeItem('updateSignupUrl');
-        this.router.navigate([this.redirectUrl]);
+        localStorage.setItem("firstName", this.firstName);
+        localStorage.setItem("lastName", this.lastName);
+        localStorage.setItem("role", JSON.stringify(roleData));
+        // this.redirectUrl = localStorage.getItem('updateSignupUrl') || '/admin';
+        // localStorage.removeItem('updateSignupUrl');
+        this.router.navigate(['/dashboard']); // Redirect to admin page
 
         this.toast.showSuccess('Login successful'); // Show toast
       },

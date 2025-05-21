@@ -1,4 +1,4 @@
-import {Component, HostListener, Inject, PLATFORM_ID, signal} from '@angular/core';
+import {Component, HostListener, Inject, OnInit, PLATFORM_ID, signal} from '@angular/core';
 import {isPlatformBrowser, ViewportScroller} from '@angular/common';
 import {NavigationEnd, Router} from '@angular/router';
 import {AuthService} from '../../auth/service/auth.service';
@@ -8,84 +8,47 @@ import {AuthService} from '../../auth/service/auth.service';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
-//   constructor(
-//     private viewportScroller: ViewportScroller,
-//     private router: Router,
-//     @Inject(PLATFORM_ID) private platformId: Object
-//   ) {
-//     this.router.events.subscribe((event) => {
-//       if (event instanceof NavigationEnd) {
-//         this.setActiveLink();
-//       }
-//     });
-//   }
-//
-//   isSticky: boolean = false;
-//   activeSection: string = '';
-//
-//   @HostListener('window:scroll', ['$event'])
-//   handleScroll(event: Event) {
-//     if (isPlatformBrowser(this.platformId)) {
-//       const scrollTop = window.scrollY || document.documentElement.scrollTop;
-//       this.isSticky = scrollTop > 0;
-//       this.setActiveLink();
-//     }
-//   }
-//
-//   public scrollToAnchoringPosition(elementId: string): void {
-//     if (this.router.url.endsWith('/')) {
-//       this.viewportScroller.scrollToAnchor(elementId);
-//     } else {
-//       this.router.navigate(['/']);
-//     }
-//   }
-//
-//   setActiveLink() {
-//     if (isPlatformBrowser(this.platformId)) {
-//       const sections = ['home', 'about', 'feature', 'testimonial', 'faq', 'footer'];
-//       const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-//       let activeSection = '';
-//       for (const section of sections) {
-//         const element = document.getElementById(section);
-//         if (element && element.offsetTop <= scrollPosition + 400) {
-//           activeSection = section;
-//         }
-//       }
-//       this.activeSection = activeSection;
-//     }
-//   }
-//
-//
-// }
+export class HeaderComponent implements OnInit{
+  isAuthenticated = false;
+  currentUser:  any | null = null;
+  username: string | null = null;
 
   dropdownOpen = false;
 
   constructor(private authService: AuthService) {
+  }
 
+  ngOnInit() {
+    // Check if the user is logged in by verifying the token in localStorage
+    const token = localStorage.getItem('token');
+    const firstName = localStorage.getItem('firstName');
+    const lastName = localStorage.getItem('lastName');
 
-    // Subscribe to current user changes
-    // this.authService.currentUser$.subscribe(
-    //   user => this.currentUser = user
-    // );
+    if (token && firstName && lastName) {
+      this.isAuthenticated = true;
+      const fullName = `${firstName} ${lastName}`;
+      const initials = this.getInitials({ firstName, lastName });
+      this.currentUser = { firstName, lastName, fullName, username: fullName, initials };
+    }
   }
 
   toggleDropdown(): void {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
-  // logout(): void {
-  //   this.authService.logout();
-  //   this.dropdownOpen = false;
-  // }
+  logout(): void {
+    // Clear localStorage and reset state
+    localStorage.clear();
+    this.isAuthenticated = false;
+    this.currentUser = null;
+  }
 
-  // getInitials(user: User | null): string {
-  //   if (!user) return '';
-  //
-  //   const firstInitial = user.firstName.charAt(0);
-  //   const lastInitial = user.lastName.charAt(0);
-  //
-  //   return (firstInitial + lastInitial).toUpperCase();
-  // }
-  logout = signal<any | null>(null);
+  getInitials(user: any | null): string {
+    if (!user) return '';
+
+    const firstInitial = user.firstName.charAt(0);
+    const lastInitial = user.lastName.charAt(0);
+
+    return `${firstInitial}${lastInitial}`;
+  }
 }

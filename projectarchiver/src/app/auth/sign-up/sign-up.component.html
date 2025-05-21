@@ -38,20 +38,38 @@
 
             <!-- Full Name -->
             <div class="mb-3">
-              <label for="fullName" class="form-label">Full Name</label>
+              <label for="firstName" class="form-label">First Name</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="fas fa-user"></i></span>
               <input
                 type="text"
-                id="fullName"
+                id="firstName"
                 class="form-control"
-                formControlName="fullName"
-                [ngClass]="{ 'is-invalid': submitted && f['fullName'].errors }" placeholder="Enter the full name"/>
+                formControlName="firstName"
+                [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }" placeholder="Enter the first name"/>
 
-              <div class="invalid-feedback" *ngIf="submitted && f['fullName'].errors">
-                <div *ngIf="f['fullName'].errors?.['required']">Full name is required</div>
+              <div class="invalid-feedback" *ngIf="submitted && f['firstName'].errors">
+                <div *ngIf="f['firstName'].errors?.['required']">First name is required</div>
               </div>
             </div>
+            </div>
+
+            <!-- Last Name -->
+            <div class="mb-3">
+              <label for="lastname" class="form-label">Last Name</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="fa-solid fa-user-tag"></i></span>
+                <input
+                  type="text"
+                  id="lastName"
+                  class="form-control"
+                  formControlName="lastName"
+                  [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }" placeholder="Enter the last name"/>
+
+                <div class="invalid-feedback" *ngIf="submitted && f['lastName'].errors">
+                  <div *ngIf="f['lastName'].errors?.['required']">Last name is required</div>
+                </div>
+              </div>
             </div>
 
             <!-- Email -->
