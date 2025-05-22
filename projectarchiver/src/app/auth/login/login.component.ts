@@ -28,7 +28,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private toast: ToastService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.loginDetail = this.formBuilder.group({
@@ -54,32 +55,22 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.loading = true; // Start spinner
+    this.loading = true;
 
     this.authService.loginUser(this.loginDetail.value).subscribe({
       next: (response: any) => {
-        this.loading = false; // Stop spinner
-        this.token = response.data.accessToken;
-        this.firstName = response.data.user.firstName;
-        this.lastName = response.data.user.lastName;
+        this.loading = false;
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('firstName', response.data.user.firstName);
+        localStorage.setItem('lastName', response.data.user.lastName);
 
-        // Save the entire role object as a JSON string
-        const roleData = response.data.user.role;
-
-        localStorage.setItem("token", this.token);
-        localStorage.setItem("firstName", this.firstName);
-        localStorage.setItem("lastName", this.lastName);
-        localStorage.setItem("role", JSON.stringify(roleData));
-        // this.redirectUrl = localStorage.getItem('updateSignupUrl') || '/admin';
-        // localStorage.removeItem('updateSignupUrl');
-        this.router.navigate(['/dashboard']); // Redirect to admin page
-
-        this.toast.showSuccess('Login successful'); // Show toast
+        this.authService.updateAuthState(true); // Notify about login
+        this.router.navigate(['/dashboard']);
       },
-      error: (error: any) => {
-        this.loading = false; // Stop spinner
-        this.toast.showError('Invalid email or password'); // Show error toast
-      }
+      error: () => {
+        this.loading = false;
+        this.toast.showError('Invalid email or password');
+      },
     });
   }
 }

@@ -17,6 +17,25 @@ export class AuthService {
   ) { }
   public apiUrl = environment.baseUrl;
 
+  private authState = new BehaviorSubject<boolean>(this.isLoggedIn());
+
+  getAuthState(): Observable<boolean> {
+    return this.authState.asObservable();
+  }
+
+  updateAuthState(isAuthenticated: boolean): void {
+    this.authState.next(isAuthenticated);
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  logout(): void {
+    localStorage.clear();
+    this.updateAuthState(false);
+  }
+
 
   registerUsers(signupData: any): Observable<any>{
     return this.http.post(`${this.apiUrl}/users/register`, signupData);
