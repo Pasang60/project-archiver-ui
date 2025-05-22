@@ -15,6 +15,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { OtpComponent } from './auth/otp/otp.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { FileUploaderComponent } from './file-uploader/file-uploader.component';
     SignUpComponent,
     OtpComponent,
     DashboardComponent,
-    FileUploaderComponent
+    FileUploaderComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

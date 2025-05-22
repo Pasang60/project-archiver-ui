@@ -18,30 +18,31 @@ export class HeaderComponent implements OnInit{
   constructor(private authService: AuthService) {
   }
 
-  ngOnInit() {
-    // Check if the user is logged in by verifying the token in localStorage
-    const token = localStorage.getItem('token');
-    const firstName = localStorage.getItem('firstName');
-    const lastName = localStorage.getItem('lastName');
 
-    if (token && firstName && lastName) {
-      this.isAuthenticated = true;
-      const fullName = `${firstName} ${lastName}`;
-      const initials = this.getInitials({ firstName, lastName });
-      this.currentUser = { firstName, lastName, fullName, username: fullName, initials };
-    }
+  ngOnInit() {
+    this.authService.getAuthState().subscribe((isAuthenticated) => {
+      this.isAuthenticated = isAuthenticated;
+
+      if (isAuthenticated) {
+        const firstName = localStorage.getItem('firstName');
+        const lastName = localStorage.getItem('lastName');
+        const fullName = `${firstName} ${lastName}`;
+        const initials = this.getInitials({ firstName, lastName });
+        this.currentUser = { firstName, lastName, fullName, username: fullName, initials };
+      } else {
+        this.currentUser = null;
+      }
+    });
+  }
+
+  logout(): void {
+    this.authService.logout(); // Use AuthService to handle logout
   }
 
   toggleDropdown(): void {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
-  logout(): void {
-    // Clear localStorage and reset state
-    localStorage.clear();
-    this.isAuthenticated = false;
-    this.currentUser = null;
-  }
 
   getInitials(user: any | null): string {
     if (!user) return '';
