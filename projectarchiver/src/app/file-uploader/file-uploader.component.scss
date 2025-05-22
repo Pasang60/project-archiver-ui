@@ -1,0 +1,41 @@
+.upload-card {
+  transition: all 0.3s ease;
+}
+
+.upload-area {
+  border: 2px dashed var(--gray-400);
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  transition: all 0.2s;
+  cursor: pointer;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-area.active {
+  border-color: var(--primary);
+  background-color: rgba(0, 119, 255, 0.05);
+}
+
+.upload-area:hover {
+  border-color: var(--primary-light);
+  background-color: rgba(0, 119, 255, 0.02);
+}
+
+.selected-files {
+  max-height: 200px;
+  overflow-y: auto;
+  width: 100%;
+  text-align: left;
+}
+
+.selected-file {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.02);
+  margin-bottom: 8px;
+}

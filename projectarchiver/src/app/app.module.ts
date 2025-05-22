@@ -14,6 +14,7 @@ import {ToastrModule} from 'ngx-toastr';
 import {HttpClientModule} from '@angular/common/http';
 import { OtpComponent } from './auth/otp/otp.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     TestimonialComponent,
     SignUpComponent,
     OtpComponent,
-    DashboardComponent
+    DashboardComponent,
+    FileUploaderComponent
   ],
   imports: [
     BrowserModule,

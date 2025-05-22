@@ -33,4 +33,12 @@ export class AuthService {
   updatePassword(data: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/users/set-password`, data);
   }
+
+  createArchive(files: File[]) {
+    const formData = new FormData();
+    files.forEach(file => {
+      formData.append('files', file, file.name);
+    });
+    return this.http.post(`${this.apiUrl}/archive`, formData);
+  }
 }
