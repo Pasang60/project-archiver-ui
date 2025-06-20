@@ -60,9 +60,16 @@ export class LoginComponent implements OnInit {
     this.authService.loginUser(this.loginDetail.value).subscribe({
       next: (response: any) => {
         this.loading = false;
-        localStorage.setItem('token', response.data.token);
+
+        const token = response.data.accessToken;
+        const roleString = response.data.user.role.role; // Extract the role string
+        const roleMatch = roleString.match(/name=([A-Z_]+)/); // Extract the role name using regex
+        const roleName = roleMatch ? roleMatch[1] : null;
+
+        localStorage.setItem('token', token);
         localStorage.setItem('firstName', response.data.user.firstName);
         localStorage.setItem('lastName', response.data.user.lastName);
+        localStorage.setItem('role', JSON.stringify({ name: roleName }));
 
         this.authService.updateAuthState(true); // Notify about login
         this.router.navigate(['/dashboard']);

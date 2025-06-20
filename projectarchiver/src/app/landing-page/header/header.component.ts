@@ -15,7 +15,10 @@ export class HeaderComponent implements OnInit{
 
   dropdownOpen = false;
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {
   }
 
 
@@ -37,6 +40,7 @@ export class HeaderComponent implements OnInit{
 
   logout(): void {
     this.authService.logout(); // Use AuthService to handle logout
+    this.router.navigate(['/']);
   }
 
   toggleDropdown(): void {

@@ -11,11 +11,12 @@ import { TestimonialComponent } from './landing-page/testimonial/testimonial.com
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ToastrModule} from 'ngx-toastr';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { OtpComponent } from './auth/otp/otp.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 import { ProfileComponent } from './profile/profile.component';
+import {AuthInterceptor} from './interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,14 @@ import { ProfileComponent } from './profile/profile.component';
     }),
     FormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
