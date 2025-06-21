@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
   sortBy = 'date';
   isAdmin = false;
   isStudent = false;
-  totalStudents = 150;
+  totalArchive: any;
   pendingProjects: any[] = []; // Added missing variable
   studentProjects: any[] = []; // Added missing variable
 
@@ -40,6 +40,8 @@ export class DashboardComponent implements OnInit {
 
   loadDashboardData() {
     if (this.isAdmin) {
+
+      this.countArchive();
       // Load admin dashboard data
       this.pendingProjects = [
         {
@@ -74,6 +76,12 @@ export class DashboardComponent implements OnInit {
         // Add more mock projects
       ];
     }
+  }
+
+  countArchive() {
+    this.authService.getArchiveCount().subscribe((response) => {
+      this.totalArchive = response.data;
+    });
   }
 
   toggleUploadArea() {
