@@ -60,4 +60,8 @@ export class AuthService {
     });
     return this.http.post(`${this.apiUrl}/archive`, formData);
   }
+
+  getArchiveCount(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/algorithm/archived-files/count`);
+  }
 }
