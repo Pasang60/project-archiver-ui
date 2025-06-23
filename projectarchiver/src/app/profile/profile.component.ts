@@ -1,17 +1,14 @@
-import {Component, ElementRef, OnInit, signal, ViewChild} from '@angular/core';
-import {AuthService} from '../auth/service/auth.service';
-import {ApiService} from '../common/api.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ToastService} from '../common/toast.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from '../common/api.service';
+import { ToastService } from '../common/toast.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss'
+  styleUrls: ['./profile.component.scss']
 })
-
 export class ProfileComponent implements OnInit {
-
   profileForm!: FormGroup;
   isAuthenticated = false;
   currentUser: any = null;
@@ -26,8 +23,7 @@ export class ProfileComponent implements OnInit {
     private apiService: ApiService,
     private fb: FormBuilder,
     private toast: ToastService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.profileForm = this.fb.group({
@@ -36,7 +32,8 @@ export class ProfileComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: [''],
       address: [''],
-      profilePic: [null, Validators.required]
+      profilePic: [null]
+
     });
 
     this.loadProfile();
@@ -52,7 +49,7 @@ export class ProfileComponent implements OnInit {
         firstName,
         lastName,
         fullName,
-        initials: this.getUserInitials({firstName, lastName})
+        initials: this.getUserInitials({ firstName, lastName })
       };
     }
   }
@@ -71,7 +68,7 @@ export class ProfileComponent implements OnInit {
       next: (response) => {
         this.profile = response.data;
         this.profileForm.patchValue(this.profile);
-        this.profileImagePreview = this.profile?.profilePicture || ''; // Set the image preview
+        this.profileImagePreview = this.profile?.profilePicture || '';
         this.isLoading = false;
       },
       error: (error) => {
@@ -82,14 +79,12 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-
   onProfileImageSelected(event: Event): void {
-    const fileInput = event.target as HTMLInputElement;
-
-    if (fileInput.files?.[0]) {
-      const file = fileInput.files[0];
+    const inputElement = event.target as HTMLInputElement | null;
+    if (inputElement && inputElement.files && inputElement.files.length > 0) {
+      const file: File = inputElement.files.item(0)!;
       this.profileForm.patchValue({ profilePic: file });
-      this.isPresentFile = true; // Set to true when a file is selected
+      this.isPresentFile = true;
 
       const reader = new FileReader();
       reader.onload = () => {
@@ -97,7 +92,7 @@ export class ProfileComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     } else {
-      this.isPresentFile = false; // Reset if no file is selected
+      this.isPresentFile = false;
     }
   }
 
@@ -105,39 +100,68 @@ export class ProfileComponent implements OnInit {
     this.submitted = true;
     this.profileForm.markAllAsTouched();
 
-    if (this.profileForm.valid) {
-      const updatedProfile = new FormData();
-      updatedProfile.append('firstName', this.f['firstName'].value);
-      updatedProfile.append('lastName', this.f['lastName'].value);
-      updatedProfile.append('email', this.f['email'].value);
-      updatedProfile.append('address', this.f['address'].value);
-      updatedProfile.append('phone', this.f['phoneNumber'].value);
-
-      // Append profilePic only if a file is selected
-      if (this.isPresentFile && this.profileForm.get('profilePic')?.value) {
-        updatedProfile.append('profilePic', this.profileForm.get('profilePic')?.value);
-      }
-
-      console.log('Updated Profile Data:', updatedProfile); // Debugging
-
-      this.apiService.updateProfile(updatedProfile).subscribe({
-        next: (response) => {
-          console.log('API Response:', response); // Debugging
-          this.toast.showSuccess('Profile updated successfully');
-          this.loadProfile(); // Reload profile to reflect changes
-          this.isPresentFile = false;
-          this.isLoading = false;
-        },
-        error: (error) => {
-          console.error('Error updating profile:', error); // Debugging
-          this.toast.showError(error.error?.message || 'Update failed');
-          this.isLoading = false;
-        }
-      });
-    } else {
+    if (!this.profileForm.valid) {
       this.toast.showError('Please fill in all required fields');
-      this.isLoading = false;
+      return;
+    }
+
+    this.isLoading = true;
+
+    const updatedProfile = new FormData();
+    updatedProfile.append('firstName', this.f['firstName'].value);
+    updatedProfile.append('lastName', this.f['lastName'].value);
+    updatedProfile.append('email', this.f['email'].value);
+    updatedProfile.append('address', this.f['address'].value);
+    updatedProfile.append('phone', this.f['phoneNumber'].value);
+
+
+    if (this.isPresentFile && this.profileForm.get('profilePic')?.value) {
+      updatedProfile.append('profilePic', this.profileForm.get('profilePic')?.value);
+      this.sendFormData(updatedProfile);
+    } else if (this.profile?.profilePicture) {
+      fetch(this.profile.profilePicture)
+        .then(res => res.blob())
+        .then(blob => {
+          const file = new File([blob], 'existing-profile.jpg', { type: blob.type });
+          updatedProfile.append('profilePic', file);
+          this.sendFormData(updatedProfile);
+        })
+        .catch(err => {
+          console.error('Failed to fetch existing image:', err);
+          this.toast.showError('Could not prepare existing image');
+          this.isLoading = false;
+        });
+    } else {
+      this.sendFormData(updatedProfile);
     }
   }
-}
 
+  sendFormData(formData: FormData) {
+    this.apiService.updateProfile(formData).subscribe({
+      next: (response: any) => {
+        const updatedData = response.data;
+
+        localStorage.setItem('firstName', updatedData.firstName);
+        localStorage.setItem('lastName', updatedData.lastName);
+        localStorage.setItem('email', updatedData.email);
+
+        this.currentUser = {
+          firstName: updatedData.firstName,
+          lastName: updatedData.lastName,
+          fullName: `${updatedData.firstName} ${updatedData.lastName}`,
+          initials: this.getUserInitials(updatedData)
+        };
+
+        this.toast.showSuccess(response.message || 'Profile updated successfully');
+        this.loadProfile();
+        this.isPresentFile = false;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error(error);
+        this.toast.showError(error.error?.message || 'Update failed');
+        this.isLoading = false;
+      }
+    });
+  }
+}
