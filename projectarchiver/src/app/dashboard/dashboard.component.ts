@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from '../auth/service/auth.service';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,8 +17,13 @@ export class DashboardComponent implements OnInit {
   isAdmin = false;
   isStudent = false;
   totalArchive: any;
+  userArchive: any;
+  verifiedUsers: any;
   pendingProjects: any[] = []; // Added missing variable
   studentProjects: any[] = []; // Added missing variable
+
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(private authService: AuthService) {}
 
@@ -42,6 +48,7 @@ export class DashboardComponent implements OnInit {
     if (this.isAdmin) {
 
       this.countArchive();
+      this.countUsers();
       // Load admin dashboard data
       this.pendingProjects = [
         {
@@ -59,6 +66,8 @@ export class DashboardComponent implements OnInit {
         // Add more mock projects
       ];
     } else if (this.isStudent) {
+
+      this.userCountArchive();
       // Load student dashboard data
       this.studentProjects = [
         {
@@ -81,6 +90,18 @@ export class DashboardComponent implements OnInit {
   countArchive() {
     this.authService.getArchiveCount().subscribe((response) => {
       this.totalArchive = response.data;
+    });
+  }
+
+  countUsers() {
+    this.authService.getUserCount().subscribe((response) => {
+      this.verifiedUsers = response.data;
+    });
+  }
+
+  userCountArchive(){
+    this.authService.getUserArchiveCount().subscribe((response) => {
+      this.userArchive = response.data;
     });
   }
 
