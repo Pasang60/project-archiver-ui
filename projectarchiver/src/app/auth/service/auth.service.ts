@@ -64,4 +64,13 @@ export class AuthService {
   getArchiveCount(): Observable<any> {
     return this.http.get(`${this.apiUrl}/algorithm/archived-files/count`);
   }
+
+  getUserArchiveCount():Observable<any> {
+  return this.http.get(`${this.apiUrl}/algorithm/user/archived-count`);
+  }
+
+  getUserCount(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/users/getVerifiedUsersCount`);
+  }
+
 }

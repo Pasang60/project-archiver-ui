@@ -121,8 +121,10 @@ export class FileUploaderComponent implements OnInit{
     this.uploadProgress = 0;
 
     const formData = new FormData();
-    const fileName = 'archive.zip'; // Example file name, replace with dynamic value if needed
-    formData.append('fileName', fileName); // Append fileName
+
+    // Dynamically set the file name based on the first file or custom logic
+    const fileName = this.files.length > 0 ? this.files[0].name : 'default.zip';
+    formData.append('fileName', fileName); // Append dynamic fileName
 
     // Append each file individually
     this.files.forEach(file => {
