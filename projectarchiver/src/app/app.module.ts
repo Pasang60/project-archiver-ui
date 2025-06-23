@@ -17,6 +17,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 import { ProfileComponent } from './profile/profile.component';
 import {AuthInterceptor} from './interceptor/auth.interceptor';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {AuthInterceptor} from './interceptor/auth.interceptor';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,

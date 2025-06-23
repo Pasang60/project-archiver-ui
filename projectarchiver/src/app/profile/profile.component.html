@@ -8,9 +8,6 @@
               {{ getUserInitials(currentUser) }}
             </div>
           </div>
-<!--          <h4 class="mb-1">{{ user?.firstName }} {{ user?.lastName }}</h4>-->
-<!--          <p class="text-muted mb-3">{{ user?.email }}</p>-->
-<!--          <p class="small text-muted mb-0">Member since {{ formatDate(user?.createdAt) }}</p>-->
         </div>
       </div>
 
@@ -54,11 +51,7 @@
                   class="form-control"
                   (change)="onProfileImageSelected($event)"
                   accept="image/*"
-                  [ngClass]="{ 'is-invalid': submitted && f['profilePic'].errors }"/>
-
-                <div class="invalid-feedback" *ngIf="submitted && f['profilePic'].errors">
-                  <div *ngIf="f['profilePic'].errors?.['required']">Profile picture is required</div>
-                </div>
+                />
               </div>
             </div>
 
@@ -69,28 +62,24 @@
               </div>
               <div class="col-md-6">
                 <label for="lastName" class="form-label">Last Name</label>
-                <input type="text" class="form-control" formControlName="lastName" id="lastName"
-                       [ngClass]="{'is-invalid': submitted && f['lastName'].errors}">
+                <input type="text" class="form-control" formControlName="lastName" id="lastName" [ngClass]="{'is-invalid': submitted && f['lastName'].errors}">
               </div>
             </div>
 
             <div class="row mb-3">
               <div class="col-md-6">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" formControlName="email" id="email"
-                       [ngClass]="{'is-invalid': submitted && f['email'].errors}">
+                <input type="email" class="form-control" formControlName="email" id="email" [ngClass]="{'is-invalid': submitted && f['email'].errors}">
               </div>
               <div class="col-md-6">
                 <label for="phone" class="form-label">Phone Number</label>
-                <input type="text" class="form-control" formControlName="phoneNumber" id="phone"
-                       [ngClass]="{'is-invalid': submitted && f['phone'].errors}">
+                <input type="text" class="form-control" formControlName="phoneNumber" id="phone">
               </div>
             </div>
 
             <div class="mb-3">
               <label for="address" class="form-label">Address</label>
-              <input type="text" class="form-control" formControlName="address" id="address"
-                     [ngClass]="{'is-invalid': submitted && f['address'].errors}">
+              <input type="text" class="form-control" formControlName="address" id="address">
             </div>
 
             <div class="d-flex justify-content-end">
@@ -99,15 +88,13 @@
                   <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
                   Update
                 </button>
-
-
               </div>
             </div>
           </form>
-
         </div>
       </div>
 
+      <!-- Usage Stats -->
       <div class="card border-0 shadow-sm mb-4">
         <div class="card-header bg-white py-3">
           <h5 class="mb-0">Usage Statistics</h5>
@@ -115,41 +102,34 @@
         <div class="card-body p-4">
           <div class="row g-4">
             <div class="col-md-4">
-              <div class="stat-item">
-                <h2 class="text-primary">28</h2>
-                <p class="text-muted mb-0">Total Archives</p>
-              </div>
+              <h2 class="text-primary">28</h2>
+              <p class="text-muted mb-0">Total Archives</p>
             </div>
             <div class="col-md-4">
-              <div class="stat-item">
-                <h2 class="text-primary">4.2 GB</h2>
-                <p class="text-muted mb-0">Space Saved</p>
-              </div>
+              <h2 class="text-primary">4.2 GB</h2>
+              <p class="text-muted mb-0">Space Saved</p>
             </div>
             <div class="col-md-4">
-              <div class="stat-item">
-                <h2 class="text-primary">72%</h2>
-                <p class="text-muted mb-0">Average Compression</p>
-              </div>
+              <h2 class="text-primary">72%</h2>
+              <p class="text-muted mb-0">Average Compression</p>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- Account Settings -->
       <div class="card border-0 shadow-sm">
         <div class="card-header bg-white py-3">
           <h5 class="mb-0">Account Settings</h5>
         </div>
         <div class="card-body p-4">
           <h6 class="mb-3">Danger Zone</h6>
-          <div class="alert alert-danger">
-            <div class="d-flex justify-content-between align-items-center">
-              <div>
-                <h6 class="alert-heading mb-1">Delete Account</h6>
-                <p class="mb-0 small">This will permanently delete your account and all your archives</p>
-              </div>
-              <button type="button" class="btn btn-outline-danger">Delete Account</button>
+          <div class="alert alert-danger d-flex justify-content-between align-items-center">
+            <div>
+              <h6 class="alert-heading mb-1">Delete Account</h6>
+              <p class="mb-0 small">This will permanently delete your account and all your archives</p>
             </div>
+            <button type="button" class="btn btn-outline-danger">Delete Account</button>
           </div>
         </div>
       </div>
