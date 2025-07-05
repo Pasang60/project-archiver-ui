@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from '../auth/service/auth.service';
-import {Subject} from 'rxjs';
+
+
 
 @Component({
   selector: 'app-dashboard',
@@ -22,8 +23,7 @@ export class DashboardComponent implements OnInit {
   pendingProjects: any[] = []; // Added missing variable
   studentProjects: any[] = []; // Added missing variable
 
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject<any>();
+
 
   constructor(private authService: AuthService) {}
 
@@ -158,3 +158,5 @@ export class DashboardComponent implements OnInit {
     return this.formatFileSize(totalSaved);
   }
 }
+
+

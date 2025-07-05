@@ -18,6 +18,7 @@ import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 import { ProfileComponent } from './profile/profile.component';
 import {AuthInterceptor} from './interceptor/auth.interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {DataTablesModule} from 'angular-datatables';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    DataTablesModule,
     ToastrModule.forRoot({
       preventDuplicates: true,
       positionClass: 'toast-top-center'
