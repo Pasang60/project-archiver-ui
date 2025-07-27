@@ -73,4 +73,12 @@ export class AuthService {
     return this.http.get(`${this.apiUrl}/users/getVerifiedUsersCount`);
   }
 
+  getAdminCompressedData(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/algorithm/getAll`);
+  }
+
+  getStudentCompressedData(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/algorithm/user/getAll`);
+  }
+
 }

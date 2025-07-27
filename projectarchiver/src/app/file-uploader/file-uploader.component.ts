@@ -1,4 +1,4 @@
-import {Component, ViewChild, ElementRef, OnInit} from '@angular/core';
+import {Component, ViewChild, ElementRef, OnInit, Output, EventEmitter} from '@angular/core';
 import {ApiService} from '../common/api.service';
 import {FormBuilder} from '@angular/forms';
 import {ToastService} from '../common/toast.service';
@@ -12,6 +12,7 @@ import {interval} from 'rxjs';
 export class FileUploaderComponent implements OnInit{
   @ViewChild('fileInput') fileInputRef!: ElementRef<HTMLInputElement>;
   @ViewChild('folderInput') folderInputRef!: ElementRef<HTMLInputElement>;
+  @Output() cancelUpload = new EventEmitter<void>();
 
   files: File[] = [];
   isDragging: boolean = false;
@@ -151,6 +152,7 @@ export class FileUploaderComponent implements OnInit{
     this.isDragging = false;
     this.isUploading = false;
     this.uploadProgress = 0;
+    this.cancelUpload.emit();
   }
 
   ngOnInit(): void {
