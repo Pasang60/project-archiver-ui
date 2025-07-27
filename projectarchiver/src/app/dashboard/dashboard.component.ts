@@ -1,12 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from '../auth/service/auth.service';
 
-
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'], // Fixed typo: styleUrl -> styleUrls
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
   archives: any[] = [];
@@ -20,10 +18,11 @@ export class DashboardComponent implements OnInit {
   totalArchive: any;
   userArchive: any;
   verifiedUsers: any;
-  pendingProjects: any[] = []; // Added missing variable
-  studentProjects: any[] = []; // Added missing variable
-
-
+  compressedData: any;
+  // Selected file for modal
+  selectedFile: any = null;
+  pendingProjects: any[] = [];
+  studentProjects: any[] = [];
 
   constructor(private authService: AuthService) {}
 
@@ -32,58 +31,45 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.checkUserRole();
-    this.loadDashboardData();
+    this.loadCompressedData();
+    this.userCountArchive();
   }
 
   checkUserRole() {
     const roleData = localStorage.getItem('role');
     if (roleData) {
-      const role = JSON.parse(roleData).name; // Parse the role JSON
+      const role = JSON.parse(roleData).name;
       this.isAdmin = role === 'ROLE_ADMIN';
       this.isStudent = role === 'ROLE_USER';
     }
   }
 
-  loadDashboardData() {
+  loadCompressedData() {
+    this.loading = true;
     if (this.isAdmin) {
-
       this.countArchive();
       this.countUsers();
-      // Load admin dashboard data
-      this.pendingProjects = [
-        {
-          id: '1',
-          name: 'Web Development Project',
-          description: 'Final year project for web development course',
-          teamMembers: ['John Doe', 'Jane Smith'],
-          originalSize: 15000000,
-          compressedSize: 3750000,
-          compressionRatio: 75,
-          createdAt: new Date().toISOString(),
-          userId: '2',
-          status: 'pending',
+      this.authService.getAdminCompressedData().subscribe((response) => {
+          this.compressedData = response.data;
+          this.loading = false;
         },
-        // Add more mock projects
-      ];
-    } else if (this.isStudent) {
+        (error) => {
+          console.error('Error fetching admin compressed data:', error);
+          this.loading = false;
+        }
+      );
 
-      this.userCountArchive();
-      // Load student dashboard data
-      this.studentProjects = [
-        {
-          id: '1',
-          name: 'Mobile App Project',
-          description: 'React Native mobile application',
-          teamMembers: ['Current User', 'Team Member'],
-          originalSize: 25000000,
-          compressedSize: 5000000,
-          compressionRatio: 80,
-          createdAt: new Date().toISOString(),
-          // userId: this.authService.getCurrentUser()?.id || '',
-          status: 'approved',
+    } else if (this.isStudent) {
+      this.authService.getStudentCompressedData().subscribe(
+        (response) => {
+          this.compressedData = response.data;
+          this.loading = false;
         },
-        // Add more mock projects
-      ];
+        (error) => {
+          console.error('Error fetching student compressed data:', error);
+          this.loading = false;
+        }
+      );
     }
   }
 
@@ -99,7 +85,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  userCountArchive(){
+  userCountArchive() {
     this.authService.getUserArchiveCount().subscribe((response) => {
       this.userArchive = response.data;
     });
@@ -110,36 +96,30 @@ export class DashboardComponent implements OnInit {
   }
 
   onUploadComplete(archive: any) {
-    // Handle project upload
     this.showUploadArea = false;
     this.archives.push(archive);
-    this.loadDashboardData();
   }
 
   approveProject(project: any) {
     project.status = 'approved';
-    // Update project status
   }
 
   rejectProject(project: any) {
     project.status = 'rejected';
-    // Update project status
   }
 
-  deleteProject(project: any) {
+  deleteProject() {
     if (confirm('Are you sure you want to delete this project?')) {
-      // Delete project logic
-      this.studentProjects = this.studentProjects.filter((p) => p.id !== project.id);
     }
   }
 
-  viewProject(project: any) {
-    // Navigate to project details
-    console.log('Viewing project:', project);
+  // Method to open view modal
+  openViewModal(fileData: any): void {
+    this.selectedFile = fileData;
+    console.log('Opening modal for file:', fileData);
   }
 
   getStudentName(userId: string): string {
-    // Get student name from userId
     return 'John Doe'; // Mock data
   }
 
@@ -157,6 +137,6 @@ export class DashboardComponent implements OnInit {
     );
     return this.formatFileSize(totalSaved);
   }
+
+  protected readonly Math = Math;
 }
-
-
