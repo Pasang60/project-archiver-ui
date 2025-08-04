@@ -1,167 +1,5 @@
-<!--<div class="container py-4">-->
-<!--  <div class="d-flex justify-content-between align-items-center mb-4">-->
-<!--    <h1 class="fw-bold">My Archives</h1>-->
-<!--    <button class="btn btn-primary" (click)="toggleUploadArea()">-->
-<!--      <i class="fa-solid fa-plus"></i> New Archive-->
-<!--    </button>-->
-<!--  </div>-->
 
-<!--  &lt;!&ndash; Search and filter bar &ndash;&gt;-->
-<!--  <div class="card mb-4 border-0 shadow-sm">-->
-<!--    <div class="card-body">-->
-<!--      <div class="row g-3">-->
-<!--        <div class="col-md-6">-->
-<!--          <div class="input-group">-->
-<!--                <span class="input-group-text bg-white border-end-0">-->
-<!--                  <i class="bi bi-search text-muted"></i>-->
-<!--                </span>-->
-<!--            <input-->
-<!--              type="text"-->
-<!--              class="form-control border-start-0"-->
-<!--              placeholder="Search archives..."-->
-<!--              [(ngModel)]="searchTerm"-->
-<!--            >-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="col-md-3">-->
-<!--          <select class="form-select" [(ngModel)]="sortBy">-->
-<!--            <option value="date">Date (newest first)</option>-->
-<!--            <option value="name">Name (A-Z)</option>-->
-<!--            <option value="size">Size (largest first)</option>-->
-<!--            <option value="ratio">Compression ratio</option>-->
-<!--          </select>-->
-<!--        </div>-->
-<!--        <div class="col-md-3 d-flex">-->
-<!--          <button class="btn btn-outline-secondary w-100" (click)="applyFilters()">-->
-<!--            <i class="bi bi-funnel me-2"></i> Apply Filters-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
 
-<!--  &lt;!&ndash; Upload area (toggle visibility) &ndash;&gt;-->
-<!--  <app-file-uploader-->
-<!--    *ngIf="showUploadArea"-->
-<!--    (uploadComplete)="onUploadComplete($event)"-->
-<!--    (cancelUpload)="toggleUploadArea()"-->
-<!--  ></app-file-uploader>-->
-
-<!--  &lt;!&ndash; Stats summary &ndash;&gt;-->
-<!--  <div class="row g-4 mb-4">-->
-<!--    <div class="col-lg-4">-->
-<!--      <div class="card border-0 shadow-sm h-100">-->
-<!--        <div class="card-body">-->
-<!--          <h5 class="card-title">Space Saved</h5>-->
-<!--          <h2 class="display-5 fw-bold text-primary">123 MB</h2>-->
-<!--          <p class="text-muted">Total compression across all archives</p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="col-lg-4">-->
-<!--      <div class="card border-0 shadow-sm h-100">-->
-<!--        <div class="card-body">-->
-<!--          <h5 class="card-title">Total Archives</h5>-->
-<!--          <h2 class="display-5 fw-bold text-primary">42</h2>-->
-<!--          <p class="text-muted">Number of archives created</p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="col-lg-4">-->
-<!--      <div class="card border-0 shadow-sm h-100">-->
-<!--        <div class="card-body">-->
-<!--          <h5 class="card-title">Average Compression</h5>-->
-<!--          <h2 class="display-5 fw-bold text-primary">75%</h2>-->
-<!--          <p class="text-muted">Space saved on average</p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  &lt;!&ndash; Archive list &ndash;&gt;-->
-<!--  <div class="row">-->
-<!--    <div class="col">-->
-<!--      <div class="card border-0 shadow-sm">-->
-<!--        <div class="card-header bg-white py-3">-->
-<!--          <h5 class="mb-0">Your archives</h5>-->
-<!--        </div>-->
-<!--        <div class="card-body p-0">-->
-<!--          <div *ngIf="loading" class="text-center py-5">-->
-<!--            <div class="spinner-border text-primary" role="status">-->
-<!--              <span class="visually-hidden">Loading...</span>-->
-<!--            </div>-->
-<!--            <p class="mt-3 text-muted">Loading your archives...</p>-->
-<!--          </div>-->
-
-<!--          <div *ngIf="!loading && archives.length === 0" class="text-center py-5">-->
-<!--            <i class="bi bi-archive text-muted" style="font-size: 3rem;"></i>-->
-<!--            <h3 class="mt-3">No archives yet</h3>-->
-<!--            <p class="text-muted mb-4">Upload your first files to get started</p>-->
-<!--            <button class="btn btn-primary" (click)="toggleUploadArea()">-->
-<!--              <i class="bi bi-plus-lg me-2"></i> Create Archive-->
-<!--            </button>-->
-<!--          </div>-->
-
-<!--          &lt;!&ndash; Sample archive list &ndash;&gt;-->
-<!--          <div class="table-responsive">-->
-<!--            <table class="table table-hover align-middle mb-0">-->
-<!--              <thead class="table-light">-->
-<!--              <tr>-->
-<!--                <th scope="col">Name</th>-->
-<!--                <th scope="col">Original Size</th>-->
-<!--                <th scope="col">Compressed</th>-->
-<!--                <th scope="col">Ratio</th>-->
-<!--                <th scope="col">Date</th>-->
-<!--                <th scope="col">Action</th>-->
-<!--              </tr>-->
-<!--              </thead>-->
-<!--              <tbody>-->
-<!--              <tr>-->
-<!--                <td>-->
-<!--                  <div class="d-flex align-items-center">-->
-<!--                    <div class="archive-icon me-3">-->
-<!--                      <i class="bi bi-file-earmark-zip text-primary" style="font-size: 1.5rem;"></i>-->
-<!--                    </div>-->
-<!--                    <div>-->
-<!--                      <h6 class="mb-0">Sample Archive</h6>-->
-<!--                      <small class="text-muted">10 files</small>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </td>-->
-<!--                <td>500 MB</td>-->
-<!--                <td>150 MB</td>-->
-<!--                <td>-->
-<!--                  <div class="d-flex align-items-center">-->
-<!--                    <div class="progress me-2" style="width: 80px; height: 8px;">-->
-<!--                      <div class="progress-bar" style="width: 70%;"></div>-->
-<!--                    </div>-->
-<!--                    <span>70%</span>-->
-<!--                  </div>-->
-<!--                </td>-->
-<!--                <td>2025-05-18</td>-->
-<!--                <td>-->
-<!--                  <div class="btn-group">-->
-<!--                    <a href="/archive/sample-id" class="btn btn-sm btn-outline-primary">-->
-<!--                      <i class="fa-solid fa-eye"></i>-->
-<!--                    </a>-->
-<!--                    <button type="button" class="btn btn-sm btn-outline-primary">-->
-<!--                      <i class="fa-solid fa-download"></i>-->
-<!--                    </button>-->
-<!--                    <button type="button" class="btn btn-sm btn-outline-danger">-->
-<!--                      <i class="fa-solid fa-trash"></i>-->
-<!--                    </button>-->
-<!--                  </div>-->
-<!--                </td>-->
-<!--              </tr>-->
-<!--              </tbody>-->
-<!--            </table>-->
-<!--          </div>-->
-
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
 
 
 <div class="container py-4">
@@ -178,8 +16,8 @@
           <div class="card-body">
             <h5 class="card-title">Total Archive</h5>
             <div class="d-flex align-items-center">
-            <i class="fa-solid fa-box-archive me-4" style="font-size: 2rem;"></i>
-            <h2 class="display-5 fw-bold mb-0">{{totalArchive}}</h2>
+              <i class="fa-solid fa-box-archive me-4" style="font-size: 2rem;"></i>
+              <h2 class="display-5 fw-bold mb-0">{{totalArchive}}</h2>
             </div>
             <p class="text-muted">Completely Compressed Data</p>
           </div>
@@ -191,7 +29,7 @@
             <h5 class="card-title">Verified Users</h5>
             <div class="d-flex align-items-center">
               <i class="fa-solid fa-circle-user text-primary me-4" style="font-size: 2rem;"></i>
-            <h2 class="display-5 fw-bold">{{ verifiedUsers }}</h2>
+              <h2 class="display-5 fw-bold">{{ verifiedUsers }}</h2>
             </div>
             <p class="text-muted">Verified Users available in the system</p>
           </div>
@@ -225,6 +63,7 @@
               <th>Original Size</th>
               <th>Compressed Size</th>
               <th>Compression</th>
+              <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -249,69 +88,32 @@
                     </div>
                   </div>
                   <span [ngClass]="{'text-danger': data.compression < 0, 'text-primary': data.compression >= 0}">
-              {{ data.compression }}%
-            </span>
+                    {{ data.compression }}%
+                  </span>
                 </div>
+              </td>
+              <td class="action-buttons">
+                <button class="btn btn-sm btn-outline-primary" title="View"
+                        (click)="openViewModal(data)" data-bs-toggle="modal" data-bs-target="#viewModal">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-success" title="Download" (click)="downloadFile(data)">
+                  <i class="fas fa-download"></i>
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-danger"
+                  title="Delete"
+                  (click)="deleteProject(data.archiveId)">
+                  <i class="fas fa-trash"></i>
+                </button>
               </td>
             </tr>
             </tbody>
           </table>
         </div>
-<!--        <div class="table-responsive">-->
-<!--          <table class="table align-middle">-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--              <th>Project Name</th>-->
-<!--              <th>Student</th>-->
-<!--              <th>Team Members</th>-->
-<!--              <th>Compression</th>-->
-<!--              <th>Status</th>-->
-<!--              <th>Actions</th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <tr *ngFor="let project of pendingProjects">-->
-<!--              <td>{{project.name}}</td>-->
-<!--              <td>{{getStudentName(project.userId)}}</td>-->
-<!--              <td>-->
-<!--                      <span class="badge bg-light text-dark me-1" *ngFor="let member of project.teamMembers">-->
-<!--                        {{member}}-->
-<!--                      </span>-->
-<!--              </td>-->
-<!--              <td>-->
-<!--                <div class="d-flex align-items-center">-->
-<!--                  <div class="progress me-2" style="width: 80px; height: 8px;">-->
-<!--                    <div class="progress-bar" [style.width.%]="project.compressionRatio"></div>-->
-<!--                  </div>-->
-<!--                  <span>{{project.compressionRatio}}%</span>-->
-<!--                </div>-->
-<!--              </td>-->
-<!--              <td>-->
-<!--                      <span class="badge" [ngClass]="{-->
-<!--                        'bg-warning': project.status === 'pending',-->
-<!--                        'bg-success': project.status === 'approved',-->
-<!--                        'bg-danger': project.status === 'rejected'-->
-<!--                      }">-->
-<!--                        {{project.status}}-->
-<!--                      </span>-->
-<!--              </td>-->
-<!--              <td>-->
-<!--                <button class="btn btn-sm btn-success me-2" (click)="approveProject(project)">-->
-<!--                  Approve-->
-<!--                </button>-->
-<!--                <button class="btn btn-sm btn-danger" (click)="rejectProject(project)">-->
-<!--                  Reject-->
-<!--                </button>-->
-<!--              </td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--          </table>-->
-<!--        </div>-->
       </div>
     </div>
   </div>
-
-
 
   <!-- Student Dashboard -->
   <div *ngIf="isStudent" class="student-dashboard">
@@ -329,43 +131,41 @@
       (cancelUpload)="toggleUploadArea()">
     </app-file-uploader>
 
-
-      <!-- Stats summary -->
-      <div class="row g-4 mb-4">
-        <div class="col-lg-4">
-          <div class="card border-0 shadow-sm h-100">
-            <div class="card-body">
-              <h5 class="card-title">Space Saved</h5>
-              <h2 class="display-5 fw-bold text-primary">123 MB</h2>
-              <p class="text-muted">Total compression across all archives</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="card border-0 shadow-sm h-100">
-            <div class="card-body">
-              <h5 class="card-title">Total Archives</h5>
-              <div class="d-flex align-items-center">
-                <i class="fa-solid fa-box-archive text-primary me-4" style="font-size: 2rem;"></i>
-                <h2 class="display-5 fw-bold text-primary mb-0">{{userArchive}}</h2>
-              </div>
-              <p class="text-muted">Number of archives created.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="card border-0 shadow-sm h-100">
-            <div class="card-body">
-              <h5 class="card-title">Average Compression</h5>
-              <h2 class="display-5 fw-bold text-primary">75%</h2>
-              <p class="text-muted">Space saved on average</p>
-            </div>
+    <!-- Stats summary -->
+    <div class="row g-4 mb-4">
+      <div class="col-lg-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title">Space Saved</h5>
+            <h2 class="display-5 fw-bold text-primary">{{getTotalSpaceSaved()}}</h2>
+            <p class="text-muted">Total compression across all archives</p>
           </div>
         </div>
       </div>
+      <div class="col-lg-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title">Total Archives</h5>
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-box-archive text-primary me-4" style="font-size: 2rem;"></i>
+              <h2 class="display-5 fw-bold text-primary mb-0">{{userArchive}}</h2>
+            </div>
+            <p class="text-muted">Number of archives created.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title">Average Compression</h5>
+            <h2 class="display-5 fw-bold text-primary"></h2>
+            <p class="text-muted">Space saved on average</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Project List -->
-
     <div class="card border-0 shadow-sm">
       <div class="card-header bg-white py-3">
         <h5 class="mb-0">Your Projects</h5>
@@ -377,6 +177,7 @@
             <table class="table table-striped table-hover mb-0">
               <thead>
               <tr>
+                <th>S.No</th>
                 <th>File Name</th>
                 <th>Compressed By</th>
                 <th>Date</th>
@@ -389,6 +190,7 @@
               </thead>
               <tbody>
               <tr *ngFor="let data of compressedData">
+                <td>{{ data.archiveId }}</td>
                 <td>
                   <div class="d-flex align-items-center">
                     <i class="fas fa-file-archive text-primary me-2"></i>
@@ -425,13 +227,16 @@
                           (click)="openViewModal(data)" data-bs-toggle="modal" data-bs-target="#viewModal">
                     <i class="fas fa-eye"></i>
                   </button>
-                  <button class="btn btn-sm btn-outline-success" title="Download">
+                  <button class="btn btn-sm btn-outline-success" title="Download" (click)="downloadFile(data)">
                     <i class="fas fa-download"></i>
                   </button>
-                  <button class="btn btn-sm btn-outline-danger" title="Delete">
+                  <button
+                    class="btn btn-sm btn-outline-danger"
+                    title="Delete"
+                    (click)="deleteProject(data.archiveId)">
                     <i class="fas fa-trash"></i>
                   </button>
-                </td>
+                  ibas              </td>
               </tr>
               </tbody>
             </table>
@@ -442,22 +247,23 @@
         <div class="d-md-none p-3">
           <div class="mobile-card" *ngFor="let data of compressedData">
             <div class="mobile-card-header">
+              <div class="mobile-label">ID : </div>
+              <div class="mobile-value">{{ data.archiveId }}</div>
+            </div>
+            <div class="mobile-card-header">
               <i class="fas fa-file-archive text-primary me-2"></i>
               {{ data.fileName }}
             </div>
-
             <div class="mobile-info-row">
               <div class="mobile-label">Compressed By</div>
               <div class="mobile-value">{{ data.compressedBy }}</div>
             </div>
-
             <div class="mobile-info-row">
               <div class="mobile-label">Date & Time</div>
               <div class="mobile-value">
                 {{ data.compressedAt | date: 'shortDate' }} at {{ data.compressedAt | date: 'shortTime' }}
               </div>
             </div>
-
             <div class="mobile-info-row">
               <div class="mobile-label">File Sizes</div>
               <div class="mobile-value">
@@ -467,7 +273,6 @@
                 </div>
               </div>
             </div>
-
             <div class="mobile-info-row">
               <div class="mobile-label">Compression Ratio</div>
               <div class="mobile-value">
@@ -486,22 +291,24 @@
                   <span
                     class="fw-medium"
                     [ngClass]="{'text-danger': data.compression < 0, 'text-success': data.compression >= 0}">
-                {{ data.compression }}%
-              </span>
+                    {{ data.compression }}%
+                  </span>
                 </div>
               </div>
             </div>
-
             <div class="d-flex btn-group-mobile">
               <button class="btn btn-outline-primary"
                       (click)="openViewModal(data)" data-bs-toggle="modal" data-bs-target="#viewModal">
                 <i class="fas fa-eye me-1"></i> View
               </button>
-              <button class="btn btn-outline-success">
+              <button class="btn btn-outline-success" (click)="downloadFile(data)">
                 <i class="fas fa-download me-1"></i> Download
               </button>
-              <button class="btn btn-outline-danger">
-                <i class="fas fa-trash me-1"></i> Delete
+              <button
+                class="btn btn-sm btn-outline-danger"
+                title="Delete"
+                (click)="deleteProject(data.archiveId)">
+                <i class="fas fa-trash"></i>
               </button>
             </div>
           </div>
@@ -541,6 +348,10 @@
                       <strong>Date:</strong>
                       <span class="ms-2">{{ selectedFile.compressedAt | date: 'medium' }}</span>
                     </div>
+                    <div class="info-item">
+                      <strong>Compression Type:</strong>
+                      <span class="ms-2">{{ selectedFile.compressionAlgorithm }}</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -577,8 +388,8 @@
                         <span
                           class="fw-bold fs-6"
                           [ngClass]="{'text-danger': selectedFile.compression < 0, 'text-success': selectedFile.compression >= 0}">
-                      {{ selectedFile.compression }}%
-                    </span>
+                          {{ selectedFile.compression }}%
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -599,8 +410,8 @@
                         Use the download button to access the file contents.
                       </p>
                       <div class="d-flex gap-2 justify-content-center">
-                        <button class="btn btn-success">
-                          <i class="fas fa-download me-2"></i>Download File
+                        <button class="btn btn-success" (click)="downloadFile(selectedFile)">
+                          <i class="fas fa-download me-2"></i>Download {{selectedFile.compressionAlgorithm === 'ZIP Deflate' ? 'Folder' : 'File'}}
                         </button>
                         <button class="btn btn-outline-secondary">
                           <i class="fas fa-list me-2"></i>View Contents List
@@ -616,208 +427,19 @@
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
               <i class="fas fa-times me-2"></i>Close
             </button>
-            <button type="button" class="btn btn-success">
+            <button type="button" class="btn btn-success" (click)="downloadFile(selectedFile)">
               <i class="fas fa-download me-2"></i>Download
             </button>
-            <button type="button" class="btn btn-danger">
-              <i class="fas fa-trash me-2"></i>Delete
+            <button
+              class="btn btn-sm btn-outline-danger"
+              title="Delete"
+              (click)="deleteProject(selectedFile.archiveId)">
+              <i class="fas fa-trash"></i>
             </button>
           </div>
         </div>
       </div>
     </div>
-<!--    <div class="card border-0 shadow-sm">-->
-<!--      <div class="card-header bg-white py-3">-->
-<!--        <h5 class="mb-0">Your Projects</h5>-->
-<!--      </div>-->
-<!--      <div class="card-body p-0">-->
-<!--        &lt;!&ndash; Desktop Table View &ndash;&gt;-->
-<!--        <div class="d-none d-md-block">-->
-<!--          <div class="table-responsive">-->
-<!--            <table class="table table-striped table-hover mb-0">-->
-<!--              <thead>-->
-<!--              <tr>-->
-<!--                <th>File Name</th>-->
-<!--                <th>Compressed By</th>-->
-<!--                <th>Date</th>-->
-<!--                <th>Time</th>-->
-<!--                <th>Original Size</th>-->
-<!--                <th>Compressed Size</th>-->
-<!--                <th>Compression</th>-->
-<!--                <th>Actions</th>-->
-<!--              </tr>-->
-<!--              </thead>-->
-<!--              <tbody>-->
-<!--              <tr *ngFor="let data of compressedData">-->
-<!--                <td>-->
-<!--                  <div class="d-flex align-items-center">-->
-<!--                    <i class="fas fa-file-archive text-primary me-2"></i>-->
-<!--                    <span class="fw-medium">{{ data.fileName }}</span>-->
-<!--                  </div>-->
-<!--                </td>-->
-<!--                <td>{{ data.compressedBy }}</td>-->
-<!--                <td>{{ data.compressedAt | date: 'shortDate' }}</td>-->
-<!--                <td>{{ data.compressedAt | date: 'shortTime' }}</td>-->
-<!--                <td class="file-size">{{ data.originalFileSize }}</td>-->
-<!--                <td class="file-size">{{ data.compressedFileSize }}</td>-->
-<!--                <td>-->
-<!--                  <div class="d-flex align-items-center compression-progress">-->
-<!--                    <div class="progress me-2" style="width: 80px; height: 8px;">-->
-<!--                      <div-->
-<!--                        class="progress-bar"-->
-<!--                        [ngClass]="{'bg-danger': data.compression < 0, 'bg-success': data.compression >= 0}"-->
-<!--                        role="progressbar"-->
-<!--                        [style.width.%]="Math.abs(data.compression)"-->
-<!--                        [attr.aria-valuenow]="data.compression"-->
-<!--                        aria-valuemin="0"-->
-<!--                        aria-valuemax="100">-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <span-->
-<!--                      class="fw-medium"-->
-<!--                      [ngClass]="{'text-danger': data.compression < 0, 'text-success': data.compression >= 0}">-->
-<!--                    {{ data.compression }}%-->
-<!--                  </span>-->
-<!--                  </div>-->
-<!--                </td>-->
-<!--                <td class="action-buttons">-->
-<!--                  <button class="btn btn-sm btn-outline-primary" title="View">-->
-<!--                    <i class="fas fa-eye"></i>-->
-<!--                  </button>-->
-<!--                  <button class="btn btn-sm btn-outline-success" title="Download">-->
-<!--                    <i class="fas fa-download"></i>-->
-<!--                  </button>-->
-<!--                  <button class="btn btn-sm btn-outline-danger" title="Delete">-->
-<!--                    <i class="fas fa-trash"></i>-->
-<!--                  </button>-->
-<!--                </td>-->
-<!--              </tr>-->
-<!--              </tbody>-->
-<!--            </table>-->
-<!--          </div>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Mobile Card View &ndash;&gt;-->
-<!--        <div class="d-md-none p-3">-->
-<!--          <div class="mobile-card" *ngFor="let data of compressedData">-->
-<!--            <div class="mobile-card-header">-->
-<!--              <i class="fas fa-file-archive text-primary me-2"></i>-->
-<!--              {{ data.fileName }}-->
-<!--            </div>-->
-
-<!--            <div class="mobile-info-row">-->
-<!--              <div class="mobile-label">Compressed By</div>-->
-<!--              <div class="mobile-value">{{ data.compressedBy }}</div>-->
-<!--            </div>-->
-
-<!--            <div class="mobile-info-row">-->
-<!--              <div class="mobile-label">Date & Time</div>-->
-<!--              <div class="mobile-value">-->
-<!--                {{ data.compressedAt | date: 'shortDate' }} at {{ data.compressedAt | date: 'shortTime' }}-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <div class="mobile-info-row">-->
-<!--              <div class="mobile-label">File Sizes</div>-->
-<!--              <div class="mobile-value">-->
-<!--                <div class="d-flex justify-content-between">-->
-<!--                  <span>Original: <span class="file-size">{{ data.originalFileSize }}</span></span>-->
-<!--                  <span>Compressed: <span class="file-size">{{ data.compressedFileSize }}</span></span>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <div class="mobile-info-row">-->
-<!--              <div class="mobile-label">Compression Ratio</div>-->
-<!--              <div class="mobile-value">-->
-<!--                <div class="d-flex align-items-center">-->
-<!--                  <div class="progress me-2 flex-grow-1" style="height: 8px;">-->
-<!--                    <div-->
-<!--                      class="progress-bar"-->
-<!--                      [ngClass]="{'bg-danger': data.compression < 0, 'bg-success': data.compression >= 0}"-->
-<!--                      role="progressbar"-->
-<!--                      [style.width.%]="Math.abs(data.compression)"-->
-<!--                      [attr.aria-valuenow]="data.compression"-->
-<!--                      aria-valuemin="0"-->
-<!--                      aria-valuemax="100">-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <span-->
-<!--                    class="fw-medium"-->
-<!--                    [ngClass]="{'text-danger': data.compression < 0, 'text-success': data.compression >= 0}">-->
-<!--                {{ data.compression }}%-->
-<!--              </span>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <div class="d-flex btn-group-mobile">-->
-<!--              <button class="btn btn-outline-primary">-->
-<!--                <i class="fas fa-eye me-1"></i> View-->
-<!--              </button>-->
-<!--              <button class="btn btn-outline-success">-->
-<!--                <i class="fas fa-download me-1"></i> Download-->
-<!--              </button>-->
-<!--              <button class="btn btn-outline-danger">-->
-<!--                <i class="fas fa-trash me-1"></i> Delete-->
-<!--              </button>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-
-
-<!--          <table class="table align-middle">-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--              <th>File Name</th>-->
-<!--              <th>Compressed By</th>-->
-<!--              <th>Compressed Date</th>-->
-<!--              <th>Time</th>-->
-<!--              <th>Original Size</th>-->
-<!--              <th>Compressed Size</th>-->
-<!--              <th>Compression</th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <tr *ngFor="let project of studentProjects">-->
-<!--              <td>{{project.name}}</td>-->
-<!--              <td>-->
-<!--                      <span class="badge bg-light text-dark me-1" *ngFor="let member of project.teamMembers">-->
-<!--                        {{member}}-->
-<!--                      </span>-->
-<!--              </td>-->
-<!--              <td>{{formatFileSize(project.originalSize)}}</td>-->
-<!--              <td>{{formatFileSize(project.compressedSize)}}</td>-->
-<!--              <td>-->
-<!--                <div class="d-flex align-items-center">-->
-<!--                  <div class="progress me-2" style="width: 80px; height: 8px;">-->
-<!--                    <div class="progress-bar" [style.width.%]="project.compressionRatio"></div>-->
-<!--                  </div>-->
-<!--                  <span>{{project.compressionRatio}}%</span>-->
-<!--                </div>-->
-<!--              </td>-->
-<!--              <td>-->
-<!--                      <span class="badge" [ngClass]="{-->
-<!--                        'bg-warning': project.status === 'pending',-->
-<!--                        'bg-success': project.status === 'approved',-->
-<!--                        'bg-danger': project.status === 'rejected'-->
-<!--                      }">-->
-<!--                        {{project.status}}-->
-<!--                      </span>-->
-<!--              </td>-->
-<!--              <td>-->
-<!--                <button class="btn btn-sm btn-primary me-2" (click)="viewProject(project)">-->
-<!--                  View-->
-<!--                </button>-->
-<!--                <button class="btn btn-sm btn-danger" (click)="deleteProject(project)">-->
-<!--                  Delete-->
-<!--                </button>-->
-<!--              </td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--          </table>-->
-        </div>
-      </div>
+  </div>
+</div>
 

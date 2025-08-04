@@ -53,13 +53,13 @@ export class AuthService {
     return this.http.put<any>(`${this.apiUrl}/users/set-password`, data);
   }
 
-  createArchive(files: File[]) {
-    const formData = new FormData();
-    files.forEach(file => {
-      formData.append('files', file, file.name);
-    });
-    return this.http.post(`${this.apiUrl}/archive`, formData);
-  }
+  // createArchive(files: File[]) {
+  //   const formData = new FormData();
+  //   files.forEach(file => {
+  //     formData.append('files', file, file.name);
+  //   });
+  //   return this.http.post(`${this.apiUrl}/archive`, formData);
+  // }
 
   getArchiveCount(): Observable<any> {
     return this.http.get(`${this.apiUrl}/algorithm/archived-files/count`);
@@ -81,4 +81,17 @@ export class AuthService {
     return this.http.get(`${this.apiUrl}/algorithm/user/getAll`);
   }
 
+
+  getCompressedData(endpoint: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}${endpoint}`);
+  }
+
+  downloadFile(id: number, compressionType: string): Observable<Blob> {
+    const endpoint =
+      compressionType.trim() === 'ZIP Deflate' // Ensure exact match
+        ? `${this.apiUrl}/algorithm/download/zip/${id}` // ZIP Deflate endpoint
+        : `${this.apiUrl}/algorithm/download/${id}`;   // Default endpoint for other types
+    console.log('API Endpoint:', endpoint); // Debug the endpoint
+    return this.http.get(endpoint, { responseType: 'blob' });
+  }
 }
