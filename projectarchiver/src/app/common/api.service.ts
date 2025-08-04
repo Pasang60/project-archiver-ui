@@ -23,7 +23,7 @@ export class ApiService {
     return this.http.put(`${this.apiUrl}/users/update`, updatedProfile);
   }
 
-  createArchive(formData: FormData): Observable<any> {
+    createArchive(formData: FormData, endpoint: string, p: { responseType: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/algorithm/compress`, formData);
   }
 

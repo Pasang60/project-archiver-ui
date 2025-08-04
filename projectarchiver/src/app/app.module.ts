@@ -14,11 +14,11 @@ import {ToastrModule} from 'ngx-toastr';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { OtpComponent } from './auth/otp/otp.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 import { ProfileComponent } from './profile/profile.component';
 import {AuthInterceptor} from './interceptor/auth.interceptor';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DataTablesModule} from 'angular-datatables';
+import {FileUploaderComponent} from './file-uploader/file-uploader.component';
 
 @NgModule({
   declarations: [

@@ -1,11 +1,14 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
-    <div class="col-12 col-md-8 col-lg-6">
+    <div class="col-12 col-md-10 col-lg-8">
       <div class="card shadow-lg border-0">
         <div class="card-body p-4">
           <!-- Header -->
           <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h4 fw-semibold text-dark mb-0">Upload Files & Folders</h2>
+            <div>
+              <h2 class="h4 fw-bold text-dark mb-1">Smart File Uploader</h2>
+              <p class="text-muted small mb-0">Advanced compression algorithms for optimal file storage</p>
+            </div>
             <button
               type="button"
               class="btn-close"
@@ -16,54 +19,98 @@
 
           <!-- Upload Type Selection -->
           <div class="mb-4">
-            <div class="btn-group w-100" role="group">
-              <input
-                type="radio"
-                class="btn-check"
-                name="uploadType"
-                id="files"
-                value="files"
-                [(ngModel)]="uploadType"
-                (change)="handleUploadTypeChange('files')">
-              <label class="btn btn-outline-primary flex-fill" for="files">
-                📄 Files
-              </label>
+            <label class="form-label fw-semibold text-dark mb-3">Choose Upload Type</label>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="uploadType"
+                  id="files"
+                  value="files"
+                  [(ngModel)]="uploadType"
+                  (change)="handleUploadTypeChange('files')">
+                <label class="btn btn-outline-primary w-100 p-3 text-start" for="files">
+                  <div class="d-flex align-items-start">
+                    <div class="me-3">
+                      <i class="fas fa-file-alt fa-2x text-primary"></i>
+                    </div>
+                    <div>
+                      <div class="fw-bold mb-1">📄 Individual Files</div>
+                      <small class="text-muted d-block">Huffman Algorithm Compression</small>
+                      <small class="text-success">Optimal for text & documents</small>
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div class="col-md-6">
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="uploadType"
+                  id="folder"
+                  value="folder"
+                  [(ngModel)]="uploadType"
+                  (change)="handleUploadTypeChange('folder')">
+                <label class="btn btn-outline-warning w-100 p-3 text-start" for="folder">
+                  <div class="d-flex align-items-start">
+                    <div class="me-3">
+                      <i class="fas fa-folder fa-2x text-warning"></i>
+                    </div>
+                    <div>
+                      <div class="fw-bold mb-1">📁 Folder Structure</div>
+                      <small class="text-muted d-block">ZIP Deflate Algorithm</small>
+                      <small class="text-info">Perfect for multiple files</small>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
 
-              <input
-                type="radio"
-                class="btn-check"
-                name="uploadType"
-                id="folder"
-                value="folder"
-                [(ngModel)]="uploadType"
-                (change)="handleUploadTypeChange('folder')">
-              <label class="btn btn-outline-warning flex-fill" for="folder">
-                📁 Folder
-              </label>
+          <!-- Description Field -->
+          <div class="mb-4">
+            <label for="description" class="form-label fw-semibold text-dark">
+              Description <span class="text-muted">(Optional)</span>
+            </label>
+            <textarea
+              id="description"
+              class="form-control"
+              rows="3"
+              maxlength="500"
+              [(ngModel)]="description"
+              placeholder="Add a description for your upload (max 500 characters)...">
+            </textarea>
+            <div class="form-text d-flex justify-content-between">
+              <small class="text-muted">Provide context or notes about your files</small>
+              <small class="text-muted">{{description.length || 0}}/500</small>
+            </div>
+          </div>
 
-              <input
-                type="radio"
-                class="btn-check"
-                name="uploadType"
-                id="both"
-                value="both"
-                [(ngModel)]="uploadType"
-                (change)="handleUploadTypeChange('both')">
-              <label class="btn btn-outline-success flex-fill" for="both">
-                📚 Mixed
-              </label>
+          <!-- Compression Info Banner -->
+          <div class="alert alert-info border-0 mb-4" [class.alert-primary]="uploadType === 'files'" [class.alert-warning]="uploadType === 'folder'">
+            <div class="d-flex align-items-center">
+              <i class="fas fa-info-circle me-2"></i>
+              <div>
+                <strong *ngIf="uploadType === 'files'">Huffman Compression Active:</strong>
+                <strong *ngIf="uploadType === 'folder'">ZIP Deflate Compression Active:</strong>
+                <span *ngIf="uploadType === 'files'"> Your files will be optimally compressed using frequency-based encoding</span>
+                <span *ngIf="uploadType === 'folder'"> Your folder structure will be compressed using industry-standard deflate algorithm</span>
+              </div>
             </div>
           </div>
 
           <!-- Upload Area -->
           <div
-            class="border border-2 border-dashed rounded p-4 text-center position-relative"
-            [class.border-primary]="isDragging || files.length > 0"
-            [class.bg-light]="isDragging || files.length > 0"
-            [class.border-warning]="uploadType === 'folder' && files.length === 0 && !isDragging"
-            [class.border-secondary]="uploadType !== 'folder' && files.length === 0 && !isDragging"
-            style="min-height: 300px; cursor: pointer;"
+            class="upload-zone border border-2 border-dashed rounded-3 p-4 text-center position-relative"
+            [class.border-primary]="uploadType === 'files' && (isDragging || files.length > 0)"
+            [class.bg-primary-subtle]="uploadType === 'files' && (isDragging || files.length > 0)"
+            [class.border-warning]="uploadType === 'folder' && (isDragging || files.length > 0)"
+            [class.bg-warning-subtle]="uploadType === 'folder' && (isDragging || files.length > 0)"
+            [class.border-secondary]="files.length === 0 && !isDragging"
+            style="min-height: 320px; cursor: pointer; transition: all 0.3s ease;"
             (dragover)="handleDragOver($event)"
+            (dragenter)="handleDragEnter($event)"
             (dragleave)="handleDragLeave($event)"
             (drop)="handleDrop($event)"
             (click)="triggerFileInput()">
@@ -73,108 +120,146 @@
               #fileInput
               type="file"
               class="d-none"
-              multiple
+              [multiple]="uploadType === 'files'"
+              [accept]="uploadType === 'files' ? '*/*' : ''"
               (change)="handleFileSelected($event)">
 
             <input
               #folderInput
               type="file"
               class="d-none"
-              [attr.webkitdirectory]="uploadType !== 'files' ? '' : null"
-              [attr.directory]="uploadType !== 'files' ? '' : null"
+              webkitdirectory
+              directory
               multiple
               (change)="handleFileSelected($event)">
 
             <!-- Empty State -->
-            <div *ngIf="files.length === 0" class="d-flex flex-column justify-content-center align-items-center h-100">
-              <div class="display-1 mb-3">
-                <span *ngIf="uploadType === 'files'">☁️</span>
-                <span *ngIf="uploadType === 'folder'">📁</span>
-                <span *ngIf="uploadType === 'both'">📚</span>
+            <div *ngIf="files.length === 0 && !isUploading" class="d-flex flex-column justify-content-center align-items-center h-100 py-4">
+              <div class="mb-4">
+                <i *ngIf="uploadType === 'files'" class="fas fa-cloud-upload-alt fa-4x text-primary"></i>
+                <i *ngIf="uploadType === 'folder'" class="fas fa-folder-plus fa-4x text-warning"></i>
               </div>
-              <h3 class="h5 fw-medium text-dark mb-2">
-                <span *ngIf="uploadType === 'files'">Drag and drop files here</span>
-                <span *ngIf="uploadType === 'folder'">Drag and drop a folder here</span>
-                <span *ngIf="uploadType === 'both'">Drag and drop files or folders here</span>
+              <h3 class="h5 fw-bold text-dark mb-2">
+                <span *ngIf="uploadType === 'files'">Drop Files Here</span>
+                <span *ngIf="uploadType === 'folder'">Drop Folder Here</span>
               </h3>
-              <p class="text-muted mb-0">
-                <span *ngIf="uploadType === 'files'">or click to browse files</span>
-                <span *ngIf="uploadType === 'folder'">or click to select a folder</span>
-                <span *ngIf="uploadType === 'both'">or click to browse files and folders</span>
+              <p class="text-muted mb-3">
+                <span *ngIf="uploadType === 'files'">Select individual files for Huffman compression</span>
+                <span *ngIf="uploadType === 'folder'">Select a folder for ZIP deflate compression</span>
               </p>
+              <button type="button" class="btn btn-outline-primary btn-sm px-4">
+                <i class="fas fa-search me-2"></i>
+                Browse {{uploadType === 'files' ? 'Files' : 'Folder'}}
+              </button>
             </div>
 
             <!-- Files List -->
             <div *ngIf="files.length > 0 && !isUploading" class="text-start">
               <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="h6 fw-medium mb-0">Selected Items ({{files.length}})</h5>
-                <small class="text-muted">{{files.length}} files</small>
+                <h5 class="h6 fw-bold mb-0 text-dark">
+                  <i class="fas fa-list me-2"></i>
+                  Selected Items ({{files.length}})
+                </h5>
+                <div class="d-flex gap-2">
+                  <span class="badge bg-primary-subtle text-primary border border-primary">
+                    {{files.length}} files
+                  </span>
+                  <span class="badge bg-success-subtle text-success border border-success">
+                    {{getTotalSize()}}
+                  </span>
+                </div>
               </div>
 
-              <div class="overflow-auto" style="max-height: 250px;">
+              <div class="border rounded-2 bg-light p-2" style="max-height: 280px; overflow-y: auto;">
                 <div *ngFor="let item of getGroupedItems(); let i = index" class="mb-2">
                   <!-- Folder Item -->
-                  <div *ngIf="item.isFolder">
-                    <div class="d-flex align-items-center p-3 bg-light rounded">
-                      <span class="me-2">📁</span>
-                      <span class="fw-medium flex-grow-1">{{item.folderName}}</span>
-                      <small class="text-muted me-2">{{item.files.length}} files</small>
+                  <div *ngIf="item.isFolder" class="border rounded p-3 bg-white file-item-enter">
+                    <div class="d-flex align-items-center mb-2">
+                      <i class="fas fa-folder text-warning me-3"></i>
+                      <span class="fw-semibold flex-grow-1 text-dark">{{item.folderName}}</span>
+                      <span class="badge bg-warning-subtle text-warning me-2">{{item.files.length}} files</span>
                       <button
                         type="button"
-                        class="btn-close btn-sm"
-                        (click)="removeFolderFiles(item.files); $event.stopPropagation()">
+                        class="btn btn-sm btn-outline-danger"
+                        (click)="removeFolderFiles(item.files); $event.stopPropagation()"
+                        title="Remove folder">
+                        <i class="fas fa-times"></i>
                       </button>
                     </div>
-                    <div class="ms-4 mt-2">
-                      <div *ngFor="let file of item.files" class="d-flex align-items-center py-1">
-                        <span class="me-2">{{getFileIconClass(file)}}</span>
-                        <small class="text-truncate flex-grow-1">{{file.name}}</small>
-                        <small class="text-muted ms-2">{{formatFileSize(file.size)}}</small>
+                    <div class="ms-4">
+                      <div *ngFor="let file of item.files.slice(0, 5)" class="d-flex align-items-center py-1 text-muted small">
+                        <i class="{{getFileIconClass(file)}} me-2"></i>
+                        <span class="text-truncate flex-grow-1">{{file.name}}</span>
+                        <span class="ms-2">{{formatFileSize(file.size)}}</span>
+                      </div>
+                      <div *ngIf="item.files.length > 5" class="text-muted small ms-3">
+                        <i class="fas fa-ellipsis-h me-1"></i>
+                        and {{item.files.length - 5}} more files...
                       </div>
                     </div>
                   </div>
 
                   <!-- Individual File Item -->
-                  <div *ngIf="!item.isFolder" class="d-flex align-items-center p-2 rounded hover-bg-light">
-                    <span class="me-3">{{getFileIconClass(item.file)}}</span>
-                    <span class="flex-grow-1 text-truncate">{{item.file.name}}</span>
-                    <small class="text-muted me-3">{{formatFileSize(item.file.size)}}</small>
+                  <div *ngIf="!item.isFolder" class="d-flex align-items-center p-3 rounded bg-white border hover-shadow file-item-enter">
+                    <i class="{{getFileIconClass(item.file)}} fa-lg me-3 text-primary"></i>
+                    <div class="flex-grow-1 min-w-0">
+                      <div class="fw-medium text-dark text-truncate">{{item.file.name}}</div>
+                      <small class="text-muted">{{formatFileSize(item.file.size)}}</small>
+                    </div>
                     <button
                       type="button"
-                      class="btn-close btn-sm"
-                      (click)="removeFile(item.originalIndex); $event.stopPropagation()">
+                      class="btn btn-sm btn-outline-danger ms-2"
+                      (click)="removeFile(item.originalIndex); $event.stopPropagation()"
+                      title="Remove file">
+                      <i class="fas fa-times"></i>
                     </button>
                   </div>
                 </div>
               </div>
 
-              <!-- Summary -->
-              <div class="mt-4 p-3 bg-light rounded">
-                <div class="row text-center">
-                  <div class="col-6">
-                    <div class="fw-bold text-primary">{{getTotalSize()}}</div>
-                    <small class="text-muted">Total Size</small>
+              <!-- Compression Summary -->
+              <div class="mt-4 p-3 rounded-3" [class.bg-primary-subtle]="uploadType === 'files'" [class.bg-warning-subtle]="uploadType === 'folder'">
+                <div class="row text-center g-3">
+                  <div class="col-4">
+                    <div class="fw-bold h5 mb-1" [class.text-primary]="uploadType === 'files'" [class.text-warning]="uploadType === 'folder'">
+                      {{getTotalSize()}}
+                    </div>
+                    <small class="text-muted d-block">Total Size</small>
                   </div>
-                  <div class="col-6">
-                    <div class="fw-bold text-success">{{files.length}}</div>
-                    <small class="text-muted">Files</small>
+                  <div class="col-4">
+                    <div class="fw-bold h5 mb-1 text-success">{{files.length}}</div>
+                    <small class="text-muted d-block">Files Selected</small>
+                  </div>
+                  <div class="col-4">
+                    <div class="fw-bold h5 mb-1 text-info">
+                      {{uploadType === 'files' ? 'Huffman' : 'ZIP Deflate'}}
+                    </div>
+                    <small class="text-muted d-block">Compression</small>
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- Upload Progress -->
-            <div *ngIf="isUploading" class="d-flex flex-column justify-content-center align-items-center h-100">
-              <div class="spinner-border text-primary mb-3" role="status">
-                <span class="visually-hidden">Loading...</span>
+            <div *ngIf="isUploading" class="d-flex flex-column justify-content-center align-items-center h-100 py-5">
+              <div class="mb-4">
+                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                  <span class="visually-hidden">Processing...</span>
+                </div>
               </div>
-              <h5 class="h6 fw-medium mb-3">
-                Processing {{uploadType === 'folder' ? 'folder' : 'files'}}...
+              <h5 class="h5 fw-bold text-dark mb-2">
+                <i class="fas fa-compress-arrows-alt me-2"></i>
+                Compressing {{uploadType === 'folder' ? 'folder' : 'files'}}...
               </h5>
-              <div class="w-100 mb-2">
-                <div class="progress">
+              <p class="text-muted mb-3">
+                Applying {{uploadType === 'files' ? 'Huffman algorithm' : 'ZIP deflate compression'}}
+              </p>
+              <div class="w-100 mb-3" style="max-width: 400px;">
+                <div class="progress" style="height: 8px;">
                   <div
-                    class="progress-bar bg-primary"
+                    class="progress-bar bg-gradient"
+                    [class.bg-primary]="uploadType === 'files'"
+                    [class.bg-warning]="uploadType === 'folder'"
                     role="progressbar"
                     [style.width.%]="uploadProgress"
                     [attr.aria-valuenow]="uploadProgress"
@@ -183,26 +268,27 @@
                   </div>
                 </div>
               </div>
-              <p class="text-muted small mb-0">
-                Please wait while we process your {{uploadType === 'folder' ? 'folder structure' : 'files'}}
-              </p>
+              <small class="text-muted">{{uploadProgress}}% complete</small>
             </div>
           </div>
 
           <!-- Action Buttons -->
-          <div *ngIf="files.length > 0 && !isUploading" class="d-flex justify-content-end gap-2 mt-4">
+          <div *ngIf="files.length > 0 && !isUploading" class="d-flex flex-column flex-sm-row justify-content-end gap-2 mt-4">
             <button
               type="button"
-              class="btn btn-outline-secondary"
+              class="btn btn-outline-secondary px-4"
               (click)="cancel()">
+              <i class="fas fa-times me-2"></i>
               Cancel
             </button>
             <button
               type="button"
-              class="btn btn-primary"
+              class="btn btn-lg px-4"
+              [class.btn-primary]="uploadType === 'files'"
+              [class.btn-warning]="uploadType === 'folder'"
               (click)="uploadFiles()">
-              <span class="me-2">📦</span>
-              Create Archive
+              <i class="fas fa-compress me-2"></i>
+              Start {{uploadType === 'files' ? 'Huffman' : 'ZIP'}} Compression
             </button>
           </div>
         </div>
@@ -211,26 +297,3 @@
   </div>
 </div>
 
-<style>
-  .hover-bg-light:hover {
-    background-color: #f8f9fa !important;
-  }
-
-  .btn-close.btn-sm {
-    font-size: 0.7rem;
-  }
-
-  .border-dashed {
-    border-style: dashed !important;
-  }
-
-  .cursor-pointer {
-    cursor: pointer;
-  }
-
-  .text-truncate {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-</style>
